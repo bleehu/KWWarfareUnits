@@ -43,7 +43,7 @@
 		contextToAddStatTo.font = "24pt Verdana";
 		contextToAddStatTo.fillText(statName, x, y);
 		contextToAddStatTo.font = "36pt Verdana";
-		contextToAddStatTo.fillText(statNumber, x, y + 53);
+		contextToAddStatTo.fillText(statNumber, x, y + 55);
 	}
 
 	function UpdateName(contextToAddTo){
@@ -85,17 +85,19 @@
 		contextToAddTo.fillRect(163, 74, 481, 77);
 
 		//size ball
+		drawCircle(contextToAddTo, 723, 118, 73, getFillagreeColor());
 		drawCircle(contextToAddTo, 723, 118, 64, getLightColor());
 
 		//tier ball
 		drawCircle(contextToAddTo, 725, 454, 51, getDarkColor());
 
+		//copymark background
+		contextToAddTo.fillStyle = getDarkColor();
+		contextToAddTo.fillRect(376, 533, 90, 41);
+
 		var backgroundImg = new Image();
 		backgroundImg.onload = () => {
 			contextToAddTo.fillStyle = getBackgroundColor();
-			//contextToAddTo.globalCompositeOperation = "destination-in";
-			contextToAddTo.drawImage(backgroundImg, 0, 0);
-			contextToAddTo.globalCompositeOperation = "source-over";
 			try{
 				UpdateName(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Name.");}
@@ -120,6 +122,8 @@
 			try{
 				UpdateSize(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Size.");}
+			contextToAddTo.drawImage(backgroundImg, 0, 0);
+			contextToAddTo.globalCompositeOperation = "source-over";
 			try{
 				UpdateAttacks(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Attacks.");}
@@ -138,11 +142,14 @@
 	}
 
 	function UpdateBanner(contextToAddTo){
+		drawBigBanner(contextToAddTo);
+		drawSmallBanner(contextToAddTo);
 		var bannerIcon = new Image();
 		bannerIcon.onload = () => {
 			contextToAddTo.drawImage(bannerIcon, 68, 58);
 		}
-		bannerIcon.src = "img/banners/Cavalry Icon.png";
+		var type = $("#unitTypeInput").val();
+		bannerIcon.src = `img/banners/${type} Icon.png`;
 		console.log("updated Banner");
 	}
 
@@ -222,6 +229,32 @@
 		contextToDrawOn.fill();
 	}
 
+	function drawBigBanner(contextToAddTo){
+		contextToAddTo.fillStyle = getFillagreeColor();
+		contextToAddTo.beginPath();
+		contextToAddTo.moveTo(58, 28);
+		contextToAddTo.lineTo(164, 28);
+		contextToAddTo.lineTo(159, 235);
+		contextToAddTo.lineTo(108, 280);
+		contextToAddTo.lineTo(63, 235);
+		contextToAddTo.lineTo(58, 28);
+		contextToAddTo.closePath();
+		contextToAddTo.fill();
+	}
+
+	function drawSmallBanner(contextToAddTo){
+		contextToAddTo.fillStyle = getDarkColor();
+		contextToAddTo.beginPath();
+		contextToAddTo.moveTo(71, 60);
+		contextToAddTo.lineTo(150, 60);
+		contextToAddTo.lineTo(148, 233);
+		contextToAddTo.lineTo(109, 262);
+		contextToAddTo.lineTo(73, 233);
+		contextToAddTo.lineTo(71, 60);
+		contextToAddTo.closePath();
+		contextToAddTo.fill();
+	}
+
 	function drawCircle(contextToAddTo, centerX, centerY, radius, color){
 		contextToAddTo.fillStyle = color;
 		contextToAddTo.strokeStyle = color;
@@ -249,6 +282,10 @@
 
 	function getLightColor(){
 		return $("#lightColor").val();
+	}
+
+	function getFillagreeColor(){
+		return $("#fillagreeColor").val();
 	}
 
 })();
