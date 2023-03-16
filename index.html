@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kingdoms And Warfare Unit Creator</title>
+	<link rel="stylesheet" href="kwStyle.css">
+	<script type="text/javascript" src="jquery-3.6.3.min.js"></script>
+	<script type="text/javascript" src="kwunitGenerator.js"></script>
+</head>
+<body>
+	<h1>Make a unit!</h1>
+	<div>
+		<form>
+			<label for="unitNameInput">Unit Name:</label>
+			<input type="text" name="unitNameInput" id="unitNameInput" value="Splonks">
+			<div class="formgroup" id="bylineGroup">
+				<p> Unit Type </p>
+				<label for="unitTypeInput">Type:</label>
+				<select name="unitTypeInput" id="unitTypeInput">
+					<option value="Infantry">Infantry</option>
+					<option value="Cavalry">Cavalry</option>
+					<option value="Artillery">Artillery</option>
+					<option value="Aerial">Aerial</option>
+				</select>
+				<label for="unitExperienceInput">Experience:</label>
+				<select name="unitExperienceInput" id="unitExperienceInput">
+					<option value="Levies"> Levies </option>
+					<option value="Regular">Regular</option>
+					<option value="Veteran">Veteran</option>
+					<option value="Elite">Elite</option>
+					<option value="Super-Elite">Super-Elite</option>
+				</select>
+				<label for="unitWeightInput">Equipment:</label>
+				<select name="unitWeightInput" id="unitWeightInput">
+					<option value="Light">Light</option>
+					<option value="Medium">Medium</option>
+					<option value="Heavy">Heavy</option>
+					<option value="Super-Heavy">Super-Heavy</option>
+				</select>
+				<label for="unitAncestryInput">Ancestry:</label>
+				<input type="text" name="unitAncestryInput" id="unitAncestryInput" value="Splonks">
+			</div>
+
+			<div class="formgroup" id="statsGroup">
+				<p> Unit Stats </p>
+				<label for="atkInput">ATK:</label>
+				<input type="text" name="atkInput" id="atkInput" value="0">
+				<label for="atkInput">DEF:</label>
+				<input type="text" name="defInput" id="defInput" value="10">
+				<label for="atkInput">POW:</label>
+				<input type="text" name="powInput" id="powInput" value="0">
+				<label for="atkInput">TOU:</label>
+				<input type="text" name="touInput" id="touInput" value="10">
+				<label for="atkInput">MOR:</label>
+				<input type="text" name="morInput" id="morInput" value="0">
+				<label for="atkInput">COM:</label>
+				<input type="text" name="comInput" id="comInput" value="0">
+			</div>
+
+			<div class="formgroup">
+				<p> Unit Stuff </p>
+				<label for="unitTierInput">Tier:</label>
+				<select name="unitTierInput" id="unitTierInput">
+					<option value="I">I</option>
+					<option value="II">II</option>
+					<option value="III">III</option>
+					<option value="IV">IV</option>
+					<option value="V">V</option>
+				</select>
+				<label for="unitSizeInput">Size:</label>
+				<input type="number" name="unitSizeInput" id="unitSizeInput" value="6">
+				<label for="unitSizeInput">Attacks:</label>
+				<input type="number" name="unitAttacksInput" id="unitAttacksInput" value="1">
+				<label for="unitSizeInput">Damage:</label>
+				<input type="number" name="unitDamageInput" id="unitDamageInput" value="1">
+			</div>
+
+			<div class="formgroup">
+				<p> Unit Traits </p>
+				<input type="text" name="unitTrait1Input" id="unitTrait1Input" value="Splonkability">
+				<input type="text" name="unitTrait2Input" id="unitTrait2Input" value="Splonking">
+				<input type="text" name="unitTrait3Input" id="unitTrait3Input" value="Splonked">
+				<input type="text" name="unitTrait4Input" id="unitTrait4Input">
+			</div>
+
+			<div class="formgroup" id="colorGroup">
+				<p> Card Colors </p>
+				<label for="backgroundColor">Background Color:</label>
+				<input type="color" name="backgroundColor" id="backgroundColor" value="#EAE7B9">
+				<label for="darkColor">Dark Color:</label>
+				<input type="color" name="darkColor" id="darkColor" value="#67924D">
+				<label for="lightColor">Light Color:</label>
+				<input type="color" name="lightColor" id="lightColor" value="#FFFDE3">
+			</div>
+			<input type="button" name="submit" value="Generate Card!" id="updateUnitButton">
+		</form>
+	</div>
+
+	<div>
+		<canvas id="unitCanvas" width="851" height="609" >
+		</canvas>
+		<img src="img/Blank unit card background.png" alt="this is the background for the card." width="40px">
+	</div>
+
+	<div></div>
+</body>
+</html>
