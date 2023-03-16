@@ -80,6 +80,10 @@
 		contextToAddTo.fillStyle = getDarkColor();
 		contextToAddTo.fillRect(133, 252, 660, 100);
 
+		//name bar
+		contextToAddTo.fillStyle = getLightColor();
+		contextToAddTo.fillRect(163, 74, 481, 77);
+
 		//size ball
 		drawCircle(contextToAddTo, 723, 118, 64, getLightColor());
 
