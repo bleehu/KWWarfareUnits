@@ -9,7 +9,6 @@
 
 	function UpdateUnitCard(){
 		var cardContext = getCanvasContext();
-		console.log("updated unit card.");
 		try{
 			clearCanvas();
 		} catch {
@@ -34,7 +33,6 @@
 		UpdateStat(contextToAddTo, "MOR", mor, 610, 290);
 		var com = $("#comInput").val();
 		UpdateStat(contextToAddTo, "COM", com, 720, 290);
-		console.log("updated Stats");
 	}
 
 	function UpdateStat(contextToAddStatTo, statName, statNumber, x, y){
@@ -49,11 +47,11 @@
 	function UpdateName(contextToAddTo){
 		var nameColor = getDarkColor();
 		var unitName = $("#unitNameInput").val();
-		contextToAddTo.font = "64pt Verdana";
+		var fontSize = $("#nameSizeInput").val();
+		contextToAddTo.font = `${fontSize}pt Verdana`;
 		contextToAddTo.textAlign = "center";
 		contextToAddTo.fillStyle = getDarkColor();
-		contextToAddTo.fillText(unitName, 430, 143);
-		console.log("updated Name");
+		contextToAddTo.fillText(unitName, 430, 146);
 	}
 
 	function UpdateType(contextToAddTo){
@@ -68,7 +66,6 @@
 		contextToAddTo.fillStyle = unitTypeColor;
 
 		contextToAddTo.fillText(unitTypeBlurb, 182, 240);
-		console.log("updated Type");
 	}
 
 	function UpdateBackground(contextToAddTo){
@@ -82,14 +79,26 @@
 
 		//name bar
 		contextToAddTo.fillStyle = getLightColor();
-		contextToAddTo.fillRect(163, 74, 481, 77);
+		contextToAddTo.fillRect(163, 74, 481, 78);
 
 		//size ball
 		drawCircle(contextToAddTo, 723, 118, 73, getFillagreeColor());
 		drawCircle(contextToAddTo, 723, 118, 64, getLightColor());
 
+		//size label box
+		contextToAddTo.fillStyle = getLightColor();
+		contextToAddTo.fillRect(650, 197, 148, 23);
+
+		//big tier box
+		contextToAddTo.fillStyle = getFillagreeColor();
+		contextToAddTo.fillRect(658, 383, 136, 157);
+
 		//tier ball
 		drawCircle(contextToAddTo, 725, 454, 51, getDarkColor());
+
+		//tier label box
+		contextToAddTo.fillStyle = getLightColor();
+		contextToAddTo.fillRect(666, 515, 121, 25);
 
 		//copymark background
 		contextToAddTo.fillStyle = getDarkColor();
@@ -129,16 +138,15 @@
 			} catch {console.log("WARNING!: failed to update Attacks.");}
 		}
 		backgroundImg.src = "img/Blank unit card background.png";
-		console.log("updated Background");
 	}
 
 	function UpdateFaction(contextToAddTo){
+		var ancestry = $("#unitAncestryInput").val();
 		var factionIcon = new Image();
 		factionIcon.onload = () => {
 			contextToAddTo.drawImage(factionIcon, 166, 81);
 		}
-		factionIcon.src = "img/factions/Demon.png";
-		console.log("updated Faction");
+		factionIcon.src = `img/factions/${ancestry}.png`;
 	}
 
 	function UpdateBanner(contextToAddTo){
@@ -150,20 +158,20 @@
 		}
 		var type = $("#unitTypeInput").val();
 		bannerIcon.src = `img/banners/${type} Icon.png`;
-		console.log("updated Banner");
 	}
 
 	function UpdateTier(contextToAddTo){
 		var unitTier = $("#unitTierInput").val();
 		contextToAddTo.font = "72pt Verdana";
 		contextToAddTo.textAlign = "center";
+
+		//size number
 		contextToAddTo.fillStyle = getLightColor();
 		contextToAddTo.fillText(unitTier, 725, 490);
 
 		contextToAddTo.font = "24px Verdana";
 		contextToAddTo.fillStyle = "black";
 		contextToAddTo.fillText("Tier", 725, 537);
-		console.log("updated Tier");
 	}
 
 	function UpdateTraits(contextToAddTo){
@@ -176,7 +184,6 @@
 			var trait = $(`#unitTrait${i}Input`).val();
 			contextToAddTo.fillText(trait, TraitX, TraitY + ((i - 1) * 40));
 		}
-		console.log("updated Traits");
 	}
 
 	function UpdateSize(contextToAddTo){
@@ -197,6 +204,7 @@
 
 		var attacks = $("#unitAttacksInput").val();
 		contextToAddTo.fillText(attacks, 110, 345);
+		drawDamageSpikes();
 		drawDamageHex();
 		contextToAddTo.fillStyle = getLightColor();
 		var damage = $("#unitDamageInput").val();
@@ -211,6 +219,67 @@
 	function drawCanvas(contextToDraw){
 		var canvasTag = document.getElementById("unitCanvas");
 		contextToDraw.drawImage(canvasTag, CARD_WIDTH, CARD_HEIGHT);
+	}
+
+	function drawDamageSpikes(){
+		var contextToDrawOn = getCanvasContext();
+		contextToDrawOn.fillStyle = getFillagreeColor();
+		contextToDrawOn.beginPath();
+		//up spike
+		contextToDrawOn.moveTo(111, 400);
+		contextToDrawOn.lineTo(118, 417);
+		contextToDrawOn.lineTo(129, 417);
+		//northeast spikes
+		contextToDrawOn.lineTo(162, 393);
+		contextToDrawOn.lineTo(142, 429);
+		contextToDrawOn.lineTo(147, 437);
+		contextToDrawOn.lineTo(163, 432); //short tip
+		contextToDrawOn.lineTo(153, 448);
+		contextToDrawOn.lineTo(157, 454);
+		//east spike
+		contextToDrawOn.moveTo(157, 454);
+		contextToDrawOn.lineTo(191, 464);
+		contextToDrawOn.lineTo(157, 473);
+
+		//southeast spikes
+		contextToDrawOn.lineTo(153, 481);
+		contextToDrawOn.lineTo(164, 497);
+		contextToDrawOn.lineTo(147, 490); //short tip
+		contextToDrawOn.lineTo(142, 499);
+		contextToDrawOn.lineTo(160, 535);
+		contextToDrawOn.lineTo(128, 512);
+
+		//south spike
+		contextToDrawOn.lineTo(117, 512);
+		contextToDrawOn.lineTo(110, 528);
+		contextToDrawOn.lineTo(104, 512);
+
+		//southwest spikes
+		contextToDrawOn.lineTo(92, 512);
+		contextToDrawOn.lineTo(61, 534);
+		contextToDrawOn.lineTo(79, 497);
+		contextToDrawOn.lineTo(73, 491); 
+		contextToDrawOn.lineTo(59, 495); //short tip
+		contextToDrawOn.lineTo(68, 481);
+
+		//west spike
+		contextToDrawOn.lineTo(64, 474);
+		contextToDrawOn.lineTo(32, 464);
+		contextToDrawOn.lineTo(64, 453);
+
+		//northwest spikes
+		contextToDrawOn.lineTo(67, 447);
+		contextToDrawOn.lineTo(59, 432); //short tip
+		contextToDrawOn.lineTo(74, 437); 
+		contextToDrawOn.lineTo(79, 431); 
+		contextToDrawOn.lineTo(62, 393); //long tip
+		contextToDrawOn.lineTo(93, 417);
+		contextToDrawOn.lineTo(106, 417);
+
+		contextToDrawOn.lineTo(111, 400);
+
+		contextToDrawOn.closePath();
+		contextToDrawOn.fill();
 	}
 
 	function drawDamageHex(){
@@ -276,7 +345,6 @@
 
 	function getDarkColor(){
 		var darkColor = $("#darkColor").val();
-		console.log("Dark Color: " + darkColor);
 		return darkColor
 	}
 

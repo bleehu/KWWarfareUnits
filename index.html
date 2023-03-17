@@ -14,6 +14,8 @@
 		<form>
 			<label for="unitNameInput">Unit Name:</label>
 			<input type="text" name="unitNameInput" id="unitNameInput" value="Splonks">
+			<label for="nameSizeInput">Unit Name:</label>
+			<input type="number" name="nameSizeInput" id="nameSizeInput" value="64">
 			<div class="formgroup" id="bylineGroup">
 				<p> Unit Type </p>
 				<label for="unitTypeInput">Type:</label>
@@ -22,7 +24,7 @@
 					<option value="Cavalry">Cavalry</option>
 					<option value="Artillery">Artillery</option>
 					<option value="Aerial">Aerial</option>
-					<option value="Aerial">Levies</option>
+					<option value="Levies">Levies</option>
 				</select>
 				<label for="unitExperienceInput">Experience:</label>
 				<select name="unitExperienceInput" id="unitExperienceInput">
@@ -88,13 +90,13 @@
 			<div class="formgroup" id="colorGroup">
 				<p> Card Colors </p>
 				<label for="backgroundColor">Background Color:</label>
-				<input type="color" name="backgroundColor" id="backgroundColor" value="#EAE7B9">
+				<input type="color" name="backgroundColor" id="backgroundColor" value="#f0f0f0">
 				<label for="darkColor">Dark Color:</label>
-				<input type="color" name="darkColor" id="darkColor" value="#67924D">
+				<input type="color" name="darkColor" id="darkColor" value="#104010">
 				<label for="lightColor">Light Color:</label>
-				<input type="color" name="lightColor" id="lightColor" value="#FFFDE3">
+				<input type="color" name="lightColor" id="lightColor" value="#08ff08">
 				<label for="fillagreeColor">Fillagree Color:</label>
-				<input type="color" name="fillagreeColor" id="fillagreeColor" value="#FFB04B">
+				<input type="color" name="fillagreeColor" id="fillagreeColor" value="#550055">
 			</div>
 			<input type="button" name="submit" value="Generate Card!" id="updateUnitButton">
 		</form>
