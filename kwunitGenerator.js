@@ -5,6 +5,38 @@
 
     function initialize(){
     	$("#updateUnitButton").click(UpdateUnitCard);
+
+    	$("#traitReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#unitTraitsReference").show();
+    	});
+
+    	$("#leviesReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#leviesReference").show();
+    	});
+
+    	$("#infantryReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#infantryReference").show();
+    	});
+
+    	$("#artilleryReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#artilleryReference").show();
+    	});
+
+    	$("#cavalryReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#cavalryReference").show();
+    	});
+
+    	$("#ancestryReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#ancestryReference").show();
+    	});
+
+    	$(".referenceSubPanel").hide();
     }
 
 	function UpdateUnitCard(){
@@ -152,6 +184,7 @@
 	function UpdateBanner(contextToAddTo){
 		drawBigBanner(contextToAddTo);
 		drawSmallBanner(contextToAddTo);
+		drawSwordBlade();
 		var bannerIcon = new Image();
 		bannerIcon.onload = () => {
 			contextToAddTo.drawImage(bannerIcon, 68, 58);
@@ -219,6 +252,22 @@
 	function drawCanvas(contextToDraw){
 		var canvasTag = document.getElementById("unitCanvas");
 		contextToDraw.drawImage(canvasTag, CARD_WIDTH, CARD_HEIGHT);
+	}
+
+	function drawSwordBlade(){
+		var contextToDrawOn = getCanvasContext();
+		contextToDrawOn.fillStyle = getLightColor();
+		contextToDrawOn.beginPath();
+
+		contextToDrawOn.moveTo(110, 232);
+		contextToDrawOn.lineTo(133, 268);
+		contextToDrawOn.lineTo(126, 373);
+		contextToDrawOn.lineTo(94, 373);
+		contextToDrawOn.lineTo(88, 268);
+		contextToDrawOn.lineTo(110, 232);
+
+		contextToDrawOn.closePath();
+		contextToDrawOn.fill();
 	}
 
 	function drawDamageSpikes(){
