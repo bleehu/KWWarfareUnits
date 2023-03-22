@@ -169,7 +169,7 @@
 				UpdateAttacks(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Attacks.");}
 		}
-		backgroundImg.src = "img/Blank unit card background.png";
+		backgroundImg.src = "static/img/Blank unit card background.png";
 	}
 
 	function UpdateFaction(contextToAddTo){
@@ -178,7 +178,7 @@
 		factionIcon.onload = () => {
 			contextToAddTo.drawImage(factionIcon, 166, 81);
 		}
-		factionIcon.src = `img/factions/${ancestry}.png`;
+		factionIcon.src = `static/img/factions/${ancestry}.png`;
 	}
 
 	function UpdateBanner(contextToAddTo){
@@ -190,7 +190,7 @@
 			contextToAddTo.drawImage(bannerIcon, 68, 58);
 		}
 		var type = $("#unitTypeInput").val();
-		bannerIcon.src = `img/banners/${type} Icon.png`;
+		bannerIcon.src = `static/img/banners/${type} Icon.png`;
 	}
 
 	function UpdateTier(contextToAddTo){
