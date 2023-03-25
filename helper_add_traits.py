@@ -1,7 +1,7 @@
-from datetime import datetime
 import json
-import sys
 import pdb
+import sys
+from datetime import datetime
 
 TRAITS_FILE = "static/traits.json"
 TRAITS = {"traits":[]}
@@ -42,7 +42,7 @@ def loadTraits():
 		oldTraits  = json.loads(traitsFile.read())
 		for trait in oldTraits["traits"]:
 			if "homebrew" not in trait:
-				trait["homebrew"] = False
+				trait["homebrew"] = True
 			TRAITS["traits"].append(trait)
 
 

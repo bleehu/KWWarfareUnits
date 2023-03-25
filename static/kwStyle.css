@@ -18,10 +18,27 @@ select {
 input[type=color], input[type=number]{
 	max-width: 40px;
 }
+
+.referenceSubPanel{
+	max-height: 800px;
+	overflow: scroll;
+	margin: 5px;
+}
+
+.traitName {
+	font-weight: bold;
+	color: #400000;
+}
+
+.traitDescription {
+
+}
+
 .formgroup {
 	display: flex;
 	flex-flow: column;
 }
+
 .referenceImage {
 	max-width: 300px;
 }
