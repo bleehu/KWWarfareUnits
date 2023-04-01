@@ -2,7 +2,7 @@ import json
 import pdb
 import sys
 from datetime import datetime
-from Traits import Trait
+from Traits.Traits import Trait
 
 TRAITS_FILE = "static/traits.json"
 DATABASE = {"traits":{}}
@@ -32,22 +32,31 @@ def loadTraitsFromJSON():
 	with open(TRAITS_FILE, "r+", encoding="utf-8") as traitsFile:
 		oldTraits  = json.loads(traitsFile.read())
 		for traitName in oldTraits["traits"].keys():
-			traitDict = oldTraits["traits"][traitName]
-			newTrait = Trait(traitName, traitDict["description"])
-			newTrait.created = traitDict["created"]
-			newTrait.homebrew = traitDict["homebrew"]
-			DATABASE["traits"].append(trait)
+			trait = oldTraits["traits"][traitName]
+			newTrait = Trait(traitName, trait["description"])
+			newTrait.created = trait["created"]
+			newTrait.homebrew = trait["homebrew"]
+			DATABASE["traits"][newTrait.name] = newTrait
 
 def saveTraits():
 	print("saving work.")
-	DATABASE["updated"] = str(datetime.now())
+	saveData = {"updated" : str(datetime.now())}
+	for traitName in DATABASE["traits"]:
+		trait = DATABASE["traits"][traitName]
+		saveData[traitName] = trait.toDict()
 	with open(TRAITS_FILE, "w", encoding="utf-8") as traitsFile:
-		newtraits = json.dumps(DATABASE)
+		newtraits = json.dumps(saveData)
 		traitsFile.write(newtraits)
 	print("work saved.")
 
+"""expects a text file containing names of traits where every odd-numbered line
+ contains the name of a trait, and every even-numbered line contains the description
+ of the trait named on the line above it. example:
+ Adaptable
+ this unit gets advantage on stuff.
+ This was really useful when copying large numbers of traits."""
 def loadFromTextFile():
-	with open("static/allTraits.txt", encoding="utf-8") as textFile:
+	with open("static/backup.txt", encoding="utf-8") as textFile:
 		textLines = [line.rstrip() for line in textFile]
 		index = 0
 		while index < len(textLines):
@@ -55,13 +64,8 @@ def loadFromTextFile():
 			index += 1
 			traitDescription = textLines[index]
 			index += 1
-			newTrait = {
-				"name":traitName.title(), 
-				"description": traitDescription,
-				"homebrew": False,
-				"created": str(datetime.now())
-				}
-			DATABASE["traits"].append(newTrait)
+			newTrait = Trait(traitName, traitDescription)
+			DATABASE["traits"][traitName] = newTrait
 
 
 
