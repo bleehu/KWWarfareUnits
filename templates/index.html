@@ -169,11 +169,16 @@
 						This unit gets a +2 to Attack tests and Command tests while in plains, dunes, or the desert. </dd>
 					<dt class="traitName"> First Strike </dt>
 					<dd> When Deployment Ends, this unit activates. </dd>
-					{% for trait in traits['traits'] %}
-					<dt class="traitName"> {{trait["name"]}} </dt>
-					<dd class="traitDescription"> {{trait["description"]}} </dd>
+					{% for traitName in traits.keys() %}
+					<dt class="traitName"> {{traits[traitName].name}} </dt>
+					<dd class="traitDescription"> {{traits[traitName].description}} 
+						{% if traits[traitName].homebrew %}
+						This Trait is Homebrewed!
+						{% endif %}
+					</dd>
 					{% endfor %}
 				</dl>
+				<p> Last updated {{ lastUpdated }} </p>
 			</div>
 			<div id="leviesReference" class="referenceSubPanel">
 				<h2>Levies Units</h2>

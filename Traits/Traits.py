@@ -15,3 +15,9 @@ class Trait:
 			"created": self.created,
 			"homebrew": self.homebrew
 			}
+
+	def fromDict(traitDict):
+		newTrait = Trait(traitDict["name"], traitDict["description"])
+		newTrait.homebrew = traitDict["homebrew"]
+		newTrait.created = traitDict["created"]
+		return newTrait
