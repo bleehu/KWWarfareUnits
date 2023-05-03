@@ -11,7 +11,7 @@ def choose():
 	userInput = input(">").strip()
 	if userInput == "show":
 		showTraits()
-	elif userInput == "x" or "userInput" == exit:
+	elif userInput == "x" or userInput == "exit" or userInput == "q" or userInput == "quit":
 		saveTraits()
 		exit()
 	else:
@@ -40,10 +40,10 @@ def loadTraitsFromJSON():
 
 def saveTraits():
 	print("saving work.")
-	saveData = {"updated" : str(datetime.now())}
+	saveData = {"updated" : str(datetime.now()), "traits":{}}
 	for traitName in DATABASE["traits"]:
 		trait = DATABASE["traits"][traitName]
-		saveData[traitName] = trait.toDict()
+		saveData["traits"][traitName] = trait.toDict()
 	with open(TRAITS_FILE, "w", encoding="utf-8") as traitsFile:
 		newtraits = json.dumps(saveData)
 		traitsFile.write(newtraits)
