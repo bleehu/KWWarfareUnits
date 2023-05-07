@@ -6,6 +6,7 @@
 	<title>Kingdoms And Warfare Unit Creator</title>
 	<link rel="stylesheet" href="static/kwStyle.css">
 	<script type="text/javascript" src="static/jquery-3.6.3.min.js"></script>
+	<script type="text/javascript" src="static/CardDrawing.js"></script>
 	<script type="text/javascript" src="static/kwunitGenerator.js"></script>
 </head>
 <body>
@@ -157,6 +158,7 @@
 				<input type="button" name="" id="artilleryReferenceButton" value="Artillery Card Reference">
 				<input type="button" name="" id="cavalryReferenceButton" value="Cavalry Card Reference">
 				<input type="button" name="" id="ancestryReferenceButton" value="Ancestry Reference">
+				<input type="button" name="" id="colorReferenceButton" value="Color Schemes">
 			</div>
 			<div id="unitTraitsReference" class="referenceSubPanel">
 				<h2>Unit Traits</h2>
@@ -207,6 +209,16 @@
 			<div id="ancestryReference" class="referenceSubPanel">
 				<img src="static/img/reference/Ancestries 1.png" style="width:680px;">
 				<img src="static/img/reference/Ancestries 2.png" style="width:680px;">
+			</div>
+			<div id="colorSchemes" class="referenceSubPanel">
+				<form>
+					<input type="text" name="colorSchemeName" id="colorSchemeNameInput" />
+					<input type="button" name="" value="Save Current Color Scheme">
+				</form>
+
+				<select>
+					<option></option>
+				</select>
 			</div>
 		</div>
 			

@@ -1,7 +1,7 @@
+// depends on CardDrawing.js, which must be imported before it in the HTML
+
 (function(){
 	$(document).ready(initialize);
-	const CARD_WIDTH = 851;
-	const CARD_HEIGHT = 609;
 
     function initialize(){
     	$("#updateUnitButton").click(UpdateUnitCard);
@@ -46,9 +46,9 @@
 		} catch {
 			alert("Failed to clear old card. Contact the programmer.");
 		}
-		//try{
+		try{
 			UpdateBackground(cardContext);
-		//} catch { console.log("Failed to load background!");}
+		} catch { console.log("Failed to load background!");}
 		drawCanvas(cardContext);
 	}
 
@@ -82,7 +82,7 @@
 		var fontSize = $("#nameSizeInput").val();
 		contextToAddTo.font = `${fontSize}pt Verdana`;
 		contextToAddTo.textAlign = "center";
-		contextToAddTo.fillStyle = getDarkColor();
+		contextToAddTo.fillStyle = nameColor;
 		contextToAddTo.fillText(unitName, 430, 146);
 	}
 
@@ -103,15 +103,14 @@
 	function UpdateBackground(contextToAddTo){
 		var backgroundColor = getBackgroundColor();
 		contextToAddTo.fillStyle = backgroundColor;
-		contextToAddTo.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+		drawBackgroundColor(contextToAddTo);
 
 		//stats bar
 		contextToAddTo.fillStyle = getDarkColor();
 		contextToAddTo.fillRect(133, 252, 660, 100);
 
 		//name bar
-		contextToAddTo.fillStyle = getLightColor();
-		contextToAddTo.fillRect(163, 74, 481, 78);
+		drawNameBar();
 
 		//size ball
 		drawCircle(contextToAddTo, 723, 118, 73, getFillagreeColor());
@@ -153,7 +152,7 @@
 			} catch {console.log("WARNING!: failed to update Faction.");}
 			try{
 				UpdateBanner(contextToAddTo);
-			} catch {console.log("WARNING!: failed to update Banner.");}
+			} catch(error) {console.log("WARNING!: failed to update Banner." + error);}
 			try{
 				UpdateTier(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Tier.");}
@@ -170,6 +169,7 @@
 			} catch {console.log("WARNING!: failed to update Attacks.");}
 		}
 		backgroundImg.src = "static/img/Blank unit card background.png";
+		drawCardOutline(contextToAddTo);
 	}
 
 	function UpdateFaction(contextToAddTo){
@@ -185,6 +185,7 @@
 		drawBigBanner(contextToAddTo);
 		drawSmallBanner(contextToAddTo);
 		drawSwordBlade();
+		drawSwordCrossguard();
 		var bannerIcon = new Image();
 		bannerIcon.onload = () => {
 			contextToAddTo.drawImage(bannerIcon, 68, 58);
@@ -242,167 +243,6 @@
 		contextToAddTo.fillStyle = getLightColor();
 		var damage = $("#unitDamageInput").val();
 		contextToAddTo.fillText(damage, 110, 490);
-	}
-
-	function getCanvasContext(){
-		var unitCanvas = document.getElementById("unitCanvas");
-		return unitCanvas.getContext("2d");
-	}
-
-	function drawCanvas(contextToDraw){
-		var canvasTag = document.getElementById("unitCanvas");
-		contextToDraw.drawImage(canvasTag, CARD_WIDTH, CARD_HEIGHT);
-	}
-
-	function drawSwordBlade(){
-		var contextToDrawOn = getCanvasContext();
-		contextToDrawOn.fillStyle = getLightColor();
-		contextToDrawOn.beginPath();
-
-		contextToDrawOn.moveTo(110, 232);
-		contextToDrawOn.lineTo(133, 268);
-		contextToDrawOn.lineTo(126, 373);
-		contextToDrawOn.lineTo(94, 373);
-		contextToDrawOn.lineTo(88, 268);
-		contextToDrawOn.lineTo(110, 232);
-
-		contextToDrawOn.closePath();
-		contextToDrawOn.fill();
-	}
-
-	function drawDamageSpikes(){
-		var contextToDrawOn = getCanvasContext();
-		contextToDrawOn.fillStyle = getFillagreeColor();
-		contextToDrawOn.beginPath();
-		//up spike
-		contextToDrawOn.moveTo(111, 400);
-		contextToDrawOn.lineTo(118, 417);
-		contextToDrawOn.lineTo(129, 417);
-		//northeast spikes
-		contextToDrawOn.lineTo(162, 393);
-		contextToDrawOn.lineTo(142, 429);
-		contextToDrawOn.lineTo(147, 437);
-		contextToDrawOn.lineTo(163, 432); //short tip
-		contextToDrawOn.lineTo(153, 448);
-		contextToDrawOn.lineTo(157, 454);
-		//east spike
-		contextToDrawOn.moveTo(157, 454);
-		contextToDrawOn.lineTo(191, 464);
-		contextToDrawOn.lineTo(157, 473);
-
-		//southeast spikes
-		contextToDrawOn.lineTo(153, 481);
-		contextToDrawOn.lineTo(164, 497);
-		contextToDrawOn.lineTo(147, 490); //short tip
-		contextToDrawOn.lineTo(142, 499);
-		contextToDrawOn.lineTo(160, 535);
-		contextToDrawOn.lineTo(128, 512);
-
-		//south spike
-		contextToDrawOn.lineTo(117, 512);
-		contextToDrawOn.lineTo(110, 528);
-		contextToDrawOn.lineTo(104, 512);
-
-		//southwest spikes
-		contextToDrawOn.lineTo(92, 512);
-		contextToDrawOn.lineTo(61, 534);
-		contextToDrawOn.lineTo(79, 497);
-		contextToDrawOn.lineTo(73, 491); 
-		contextToDrawOn.lineTo(59, 495); //short tip
-		contextToDrawOn.lineTo(68, 481);
-
-		//west spike
-		contextToDrawOn.lineTo(64, 474);
-		contextToDrawOn.lineTo(32, 464);
-		contextToDrawOn.lineTo(64, 453);
-
-		//northwest spikes
-		contextToDrawOn.lineTo(67, 447);
-		contextToDrawOn.lineTo(59, 432); //short tip
-		contextToDrawOn.lineTo(74, 437); 
-		contextToDrawOn.lineTo(79, 431); 
-		contextToDrawOn.lineTo(62, 393); //long tip
-		contextToDrawOn.lineTo(93, 417);
-		contextToDrawOn.lineTo(106, 417);
-
-		contextToDrawOn.lineTo(111, 400);
-
-		contextToDrawOn.closePath();
-		contextToDrawOn.fill();
-	}
-
-	function drawDamageHex(){
-		var contextToDrawOn = getCanvasContext();
-		contextToDrawOn.fillStyle = getDarkColor();
-		contextToDrawOn.strokeStyle = "black";
-		contextToDrawOn.beginPath();
-		contextToDrawOn.moveTo(93,  426);
-		contextToDrawOn.lineTo(126, 426);
-		contextToDrawOn.lineTo(148, 463);
-		contextToDrawOn.lineTo(126, 501);
-		contextToDrawOn.lineTo(93, 501);
-		contextToDrawOn.lineTo(72, 463);
-		contextToDrawOn.lineTo(93, 426);
-		contextToDrawOn.closePath();
-		contextToDrawOn.fill();
-	}
-
-	function drawBigBanner(contextToAddTo){
-		contextToAddTo.fillStyle = getFillagreeColor();
-		contextToAddTo.beginPath();
-		contextToAddTo.moveTo(58, 28);
-		contextToAddTo.lineTo(164, 28);
-		contextToAddTo.lineTo(159, 235);
-		contextToAddTo.lineTo(108, 280);
-		contextToAddTo.lineTo(63, 235);
-		contextToAddTo.lineTo(58, 28);
-		contextToAddTo.closePath();
-		contextToAddTo.fill();
-	}
-
-	function drawSmallBanner(contextToAddTo){
-		contextToAddTo.fillStyle = getDarkColor();
-		contextToAddTo.beginPath();
-		contextToAddTo.moveTo(71, 60);
-		contextToAddTo.lineTo(150, 60);
-		contextToAddTo.lineTo(148, 233);
-		contextToAddTo.lineTo(109, 262);
-		contextToAddTo.lineTo(73, 233);
-		contextToAddTo.lineTo(71, 60);
-		contextToAddTo.closePath();
-		contextToAddTo.fill();
-	}
-
-	function drawCircle(contextToAddTo, centerX, centerY, radius, color){
-		contextToAddTo.fillStyle = color;
-		contextToAddTo.strokeStyle = color;
-		contextToAddTo.beginPath();
-		contextToAddTo.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-		contextToAddTo.stroke();
-		contextToAddTo.closePath();
-		contextToAddTo.fill();
-	}
-
-	function clearCanvas(){
-		getCanvasContext().clearRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
-	}
-
-	function getBackgroundColor(){
-		var backgroundColor = $("#backgroundColor").val();
-		return backgroundColor;
-	}
-
-	function getDarkColor(){
-		var darkColor = $("#darkColor").val();
-		return darkColor
-	}
-
-	function getLightColor(){
-		return $("#lightColor").val();
-	}
-
-	function getFillagreeColor(){
-		return $("#fillagreeColor").val();
 	}
 
 })();
