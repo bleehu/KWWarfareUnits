@@ -4,31 +4,31 @@
 			"Background Color":{"red":253, "green": 232, "blue": 203},
 			"Dark Color":{"red":12, "green": 68, "blue": 62},
 			"Light Color":{"red":1, "green": 1, "blue": 1},
-			"Fillagree Color":{"red":186, "green": 191, "blue": 191}
+			"filigree Color":{"red":186, "green": 191, "blue": 191}
 		},
 		{"name":"Dwarf", 
 			"Background Color":{"red":247, "green": 227, "blue": 198},
 			"Dark Color":{"red":125, "green": 36, "blue": 8},
 			"Light Color":{"red":229, "green": 208, "blue": 201},
-			"Fillagree Color":{"red":204, "green": 155, "blue": 89}
+			"filigree Color":{"red":204, "green": 155, "blue": 89}
 		},
 		{"name":"Dragonborn", 
 			"Background Color":{"red":190, "green": 190, "blue": 190},
 			"Dark Color":{"red":21, "green": 87, "blue": 104},
 			"Light Color":{"red":229, "green": 229, "blue": 229},
-			"Fillagree Color":{"red":153, "green": 217, "blue": 255}
+			"filigree Color":{"red":153, "green": 217, "blue": 255}
 		},
 		{"name":"Halfling", 
 			"Background Color":{"red":255, "green": 208, "blue": 170},
 			"Dark Color":{"red":6, "green": 22, "blue": 57},
 			"Light Color":{"red":179, "green": 187, "blue": 204},
-			"Fillagree Color":{"red":119, "green": 136, "blue": 170}
+			"filigree Color":{"red":119, "green": 136, "blue": 170}
 		},
 		{"name":"Naga", 
 			"Background Color":{"red":29, "green": 35, "blue": 30},
 			"Dark Color":{"red":49, "green": 72, "blue": 50},
 			"Light Color":{"red":158, "green": 250, "blue": 146},
-			"Fillagree Color":{"red":73, "green": 180, "blue": 87}
+			"filigree Color":{"red":73, "green": 180, "blue": 87}
 		}
 	]
 }

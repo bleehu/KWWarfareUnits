@@ -113,7 +113,7 @@
 		drawNameBar();
 
 		//size ball
-		drawCircle(contextToAddTo, 723, 118, 73, getFillagreeColor());
+		drawCircle(contextToAddTo, 723, 118, 73, getfiligreeColor());
 		drawCircle(contextToAddTo, 723, 118, 64, getLightColor());
 
 		//size label box
@@ -121,7 +121,7 @@
 		contextToAddTo.fillRect(650, 197, 148, 23);
 
 		//big tier box
-		contextToAddTo.fillStyle = getFillagreeColor();
+		contextToAddTo.fillStyle = getfiligreeColor();
 		contextToAddTo.fillRect(658, 383, 136, 157);
 
 		//tier ball
