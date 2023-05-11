@@ -53,17 +53,17 @@
 	}
 
 	function UpdateStats(contextToAddTo){
-		var atk = $("#atkInput").val();
+		var atk = PrependPlusIfAbsent($("#atkInput").val());
 		UpdateStat(contextToAddTo, "ATK", atk, 220, 290);
 		var def = $("#defInput").val();
 		UpdateStat(contextToAddTo, "DEF", def, 320, 290);
-		var pow = $("#powInput").val();
+		var pow = PrependPlusIfAbsent($("#powInput").val());
 		UpdateStat(contextToAddTo, "POW", pow, 410, 290);
 		var tou = $("#touInput").val();
 		UpdateStat(contextToAddTo, "TOU", tou, 510, 290);
-		var mor = $("#morInput").val();
+		var mor = PrependPlusIfAbsent($("#morInput").val());
 		UpdateStat(contextToAddTo, "MOR", mor, 610, 290);
-		var com = $("#comInput").val();
+		var com = PrependPlusIfAbsent($("#comInput").val());
 		UpdateStat(contextToAddTo, "COM", com, 720, 290);
 	}
 
@@ -74,6 +74,12 @@
 		contextToAddStatTo.fillText(statName, x, y);
 		contextToAddStatTo.font = "36pt Verdana";
 		contextToAddStatTo.fillText(statNumber, x, y + 55);
+	}
+
+	function PrependPlusIfAbsent(statNumber){
+		if (statNumber.charAt(0) != '+') 
+			statNumber = '+' + statNumber
+		return statNumber;
 	}
 
 	function UpdateName(contextToAddTo){
