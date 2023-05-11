@@ -13,7 +13,8 @@ app = Flask(__name__)
 @app.route("/")
 def render_index():
     (traits, lastUpdated) = getTraits()
-    return render_template("index.html", traits=traits, lastUpdated=lastUpdated)
+    colorSchemes = getColorSchemes()
+    return render_template("index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated)
 
 
 @app.route("/api/v1/traits/search", methods=["POST"])
@@ -32,6 +33,13 @@ def getTraits():
             newTrait = Trait.fromDict(traitsJson["traits"][traitName])
             traits[traitName] = newTrait
     return traits, lastUpdated
+
+
+def getColorSchemes():
+    schemes = {}
+    with open("static/colorSchemes.json", "r", encoding="utf-8") as schemesFile:
+        schemesJson = json.loads(schemesFile.read())
+        return schemesJson["Color Schemes"]
 
 
 if __name__ == "__main__":

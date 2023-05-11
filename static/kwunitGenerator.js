@@ -36,6 +36,11 @@
     		$("#ancestryReference").show();
     	});
 
+    	$("#colorReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#colorSchemes").show();
+    	});
+
     	$(".referenceSubPanel").hide();
     }
 
