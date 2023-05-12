@@ -34,6 +34,18 @@ class Unit:
         self.equipment = Unit.Equipment.LIGHT
         self.damage = 1
         self.attacks = 1
+    
+    def clone(self) -> 'Unit':
+        clonedUnit = Unit(self.name, self.description, self.type)
+
+        return clonedUnit
+    
+    def __eq__(self, __value: 'Unit') -> bool:
+        matches = self.name == __value.name
+        matches = matches and self.description == __value.description
+        matches = matches and self.battles == __value.battles
+        matches = matches and self.type == __value.type
+        return matches
 
     def add_trait(self, trait: Trait):
         if len(self.traits) < 5:
