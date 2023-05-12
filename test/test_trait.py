@@ -10,7 +10,7 @@ def test_trait():
 
     assert name == new_trait.name
     assert description == new_trait.description
-    assert new_trait.homebrew == True
+    assert new_trait.homebrew
 
 
 def test_trait_from_dict():
@@ -27,4 +27,4 @@ def test_trait_from_dict():
 
     assert test_trait.name == trait_name
     assert test_trait.description == trait_description
-    assert test_trait.homebrew == False
+    assert not test_trait.homebrew

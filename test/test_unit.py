@@ -1,8 +1,11 @@
-import pytest
 from pdb import set_trace
 
+import pytest
+
 from ..KingdomsAndWarfare.Trait.Trait import Trait
-from ..KingdomsAndWarfare.Unit.Unit import Unit, CannotUpgradeError, CannotLevelUpError
+from ..KingdomsAndWarfare.Unit.Unit import CannotLevelUpError
+from ..KingdomsAndWarfare.Unit.Unit import CannotUpgradeError
+from ..KingdomsAndWarfare.Unit.Unit import Unit
 
 
 # testing the unit class, not to be confused with unit tests...
@@ -19,6 +22,7 @@ def test_unit():
     splonks.add_trait(magic_resistant)
     test_trait = splonks.traits[0]
     assert test_trait == magic_resistant
+
 
 def test_levelup():
     splonks = Unit("Splonks Infantry", "Splonks with knives.", Unit.Type.INFANTRY)
@@ -39,11 +43,15 @@ def test_levelup():
     with pytest.raises(CannotLevelUpError):
         splonks.level_up()
 
+
 def test_levelup_levies():
-    splonks = Unit("Splonks levies", "Splonk levies use pumpkins as balaclavas.", Unit.Type.INFANTRY)
+    splonks = Unit(
+        "Splonks levies", "Splonk levies use pumpkins as balaclavas.", Unit.Type.INFANTRY
+    )
     splonks.experience = Unit.Experience.LEVIES
     with pytest.raises(CannotLevelUpError):
         splonks.level_up()
+
 
 def test_upgrade_infantry():
     infantry = Unit("Splonks Infantry", "Splonkitude", Unit.Type.INFANTRY)
@@ -56,6 +64,7 @@ def test_upgrade_infantry():
     assert infantry.equipment == Unit.Equipment.SUPER_HEAVY
     with pytest.raises(CannotUpgradeError):
         infantry.upgrade()
+
 
 def test_upgrade_levies():
     levies = Unit("Splonks Levies", "Cucumbers", Unit.Type.INFANTRY)

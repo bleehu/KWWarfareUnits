@@ -1,3 +1,4 @@
 Pipfile.lock
 *.pyc
 static/allTraits.txt
+.coverage

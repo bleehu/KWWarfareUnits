@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from KingdomsAndWarfare.Traits.Traits import Trait
+from KingdomsAndWarfare.Trait.Trait import Trait
 
 app = Flask(__name__)
 
@@ -14,13 +14,9 @@ app = Flask(__name__)
 def render_index():
     (traits, lastUpdated) = getTraits()
     colorSchemes = getColorSchemes()
-    return render_template("index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated)
-
-
-@app.route("/api/v1/traits/search", methods=["POST"])
-def search_traits():
-    traits = getTraits()
-    searchName = request.form["traitName"]
+    return render_template(
+        "index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated
+    )
 
 
 def getTraits():
@@ -36,7 +32,6 @@ def getTraits():
 
 
 def getColorSchemes():
-    schemes = {}
     with open("static/colorSchemes.json", "r", encoding="utf-8") as schemesFile:
         schemesJson = json.loads(schemesFile.read())
         return schemesJson["Color Schemes"]

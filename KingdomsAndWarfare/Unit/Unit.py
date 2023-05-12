@@ -1,4 +1,5 @@
-from enum import Enum, IntEnum
+from enum import Enum
+from enum import IntEnum
 from pdb import set_trace
 
 from ..Trait import Trait
@@ -34,13 +35,13 @@ class Unit:
         self.equipment = Unit.Equipment.LIGHT
         self.damage = 1
         self.attacks = 1
-    
-    def clone(self) -> 'Unit':
+
+    def clone(self) -> "Unit":
         clonedUnit = Unit(self.name, self.description, self.type)
 
         return clonedUnit
-    
-    def __eq__(self, __value: 'Unit') -> bool:
+
+    def __eq__(self, __value: "Unit") -> bool:
         matches = self.name == __value.name
         matches = matches and self.description == __value.description
         matches = matches and self.battles == __value.battles
@@ -80,8 +81,10 @@ class Unit:
             raise CannotLevelUpError("Cannot lower level below regular.")
         self.experience = self.experience - 1
 
+
 class CannotUpgradeError(Exception):
     pass
+
 
 class CannotLevelUpError(Exception):
     pass
