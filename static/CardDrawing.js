@@ -37,7 +37,7 @@ function drawSwordCrossguard(){
 
 function drawDamageSpikes(){
     var contextToDrawOn = getCanvasContext();
-    contextToDrawOn.fillStyle = getFillagreeColor();
+    contextToDrawOn.fillStyle = getFiligreeColor();
     contextToDrawOn.beginPath();
     //up spike
     contextToDrawOn.moveTo(111, 400);
@@ -119,7 +119,7 @@ function drawNameBar(){
     contextToAddTo.fillRect(163, 74, 481, 78);
     //crown spikes here
     var spikeX = [351, 383, 423, 462, 494];
-    contextToAddTo.fillStyle = getFillagreeColor();
+    contextToAddTo.fillStyle = getFiligreeColor();
 
 
     //crown diamonds
@@ -131,7 +131,7 @@ function drawNameBar(){
 }
 
 function drawBigBanner(contextToAddTo){
-    contextToAddTo.fillStyle = getFillagreeColor();
+    contextToAddTo.fillStyle = getFiligreeColor();
     contextToAddTo.beginPath();
     contextToAddTo.moveTo(58, 28);
     contextToAddTo.lineTo(164, 28);
@@ -223,6 +223,6 @@ function getLightColor(){
     return $("#lightColor").val();
 }
 
-function getFillagreeColor(){
-    return $("#fillagreeColor").val();
+function getFiligreeColor(){
+    return $("#filigreeColor").val();
 }
