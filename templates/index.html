@@ -219,6 +219,33 @@
 				<select>
 					<option></option>
 				</select>
+
+				<h2>Saved Color Schemes</h2>
+				<dl id="colorSchemesTable">
+					{% for colorScheme in colorSchemes %}
+					<dt class="colorSchemeName"> {{colorScheme["name"]}} </dt>
+					{% set color = colorScheme["Background Color"] %}
+					{% set r = color["red"] %}
+					{% set g = color["green"] %}
+					{% set b = color["blue"] %}
+					<dd class="colorSchemePreview" style="border-left: 18px solid rgb({{r}},{{g}},{{b}})">Background Color: ({{r}}, {{g}}, {{b}}) </dd>
+					{% set color = colorScheme["Dark Color"] %}
+					{% set r = color["red"] %}
+					{% set g = color["green"] %}
+					{% set b = color["blue"] %}
+					<dd class="colorSchemePreview" style="border-left: 18px solid rgb({{r}},{{g}},{{b}})"> Dark Color: ({{r}}, {{g}}, {{b}}) </dd>
+					{% set color = colorScheme["Light Color"] %}
+					{% set r = color["red"] %}
+					{% set g = color["green"] %}
+					{% set b = color["blue"] %}
+					<dd class="colorSchemePreview" style="border-left: 18px solid rgb({{r}},{{g}},{{b}})"> Light Color: ({{r}}, {{g}}, {{b}}) </dd>
+					{% set color = colorScheme["Filigree Color"] %}
+					{% set r = color["red"] %}
+					{% set g = color["green"] %}
+					{% set b = color["blue"] %}
+					<dd class="colorSchemePreview" style="border-left: 18px solid rgb({{r}},{{g}},{{b}})"> Filigree Color: ({{r}}, {{g}}, {{b}}) </dd>
+					{% endfor %}
+				</dl>
 			</div>
 		</div>
 			
