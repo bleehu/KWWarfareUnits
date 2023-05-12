@@ -1,4 +1,5 @@
-from enum import Enum
+from enum import Enum, IntEnum
+from pdb import set_trace
 
 from ..Trait import Trait
 
@@ -10,14 +11,14 @@ class Unit:
         CAVALRY = 3
         AERIAL = 4
 
-    class Experience(Enum):
+    class Experience(IntEnum):
         LEVIES = 1
         REGULAR = 2
         VETERAN = 3
         ELITE = 4
         SUPER_ELITE = 5
 
-    class Equipment(Enum):
+    class Equipment(IntEnum):
         LIGHT = 1
         MEDIUM = 2
         HEAVY = 3
@@ -42,24 +43,33 @@ class Unit:
 
     def battle(self):
         self.battles = self.battles + 1
+        if self.experience != Unit.Experience.LEVIES:
+            if self.battles == 1 or self.battles == 4 or self.battles == 8:
+                self.level_up()
 
     def upgrade(self):
-        if self.Experience == Unit.Experience.LEVIES:
-            raise Exception("Cannot upgrade Levies")
-        if self.Equipment == Unit.Equipment.SUPER_HEAVY:
-            raise Exception("Cannot upgrade equipment past super-heavy.")
+        if self.experience == Unit.Experience.LEVIES:
+            raise CannotUpgradeError("Cannot upgrade Levies")
+        if self.equipment == Unit.Equipment.SUPER_HEAVY:
+            raise CannotUpgradeError("Cannot upgrade equipment past super-heavy.")
         self.equipment = self.equipment + 1
 
     def level_up(self):
         if self.experience == Unit.Experience.LEVIES:
-            raise Exception("Cannot level up levies.")
+            raise CannotLevelUpError("Cannot level up levies.")
         if self.experience == Unit.Experience.SUPER_ELITE:
-            raise Exception("Cannot level up a unit past Super-elite.")
+            raise CannotLevelUpError("Cannot level up a unit past Super-elite.")
         self.experience = self.experience + 1
 
     def level_down(self):
         if self.experience == Unit.Experience.LEVIES:
-            raise Exception("Cannot level down levies.")
+            raise CannotLevelUpError("Cannot level down levies.")
         if self.experience == Unit.Experience.REGULAR:
-            raise Exception("Cannot lower level below regular.")
+            raise CannotLevelUpError("Cannot lower level below regular.")
         self.experience = self.experience - 1
+
+class CannotUpgradeError(Exception):
+    pass
+
+class CannotLevelUpError(Exception):
+    pass
