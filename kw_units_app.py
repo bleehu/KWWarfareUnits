@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from KingdomsAndWarfare.Traits.Traits import Trait
+from KingdomsAndWarfare.Trait.Trait import Trait
 
 app = Flask(__name__)
 
