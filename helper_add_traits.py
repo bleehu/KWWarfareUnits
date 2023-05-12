@@ -1,9 +1,7 @@
 import json
-import pdb
-import sys
 from datetime import datetime
 
-from Traits.Traits import Trait
+from KingdomsAndWarfare.Traits.Traits import Trait
 
 TRAITS_FILE = "static/traits.json"
 DATABASE = {"traits": {}}
