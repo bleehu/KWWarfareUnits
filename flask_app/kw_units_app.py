@@ -5,24 +5,24 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from KingdomsAndWarfare.Trait.Trait import Trait
+from ..KingdomsAndWarfare.Trait.Trait import Trait
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def render_index():
-    (traits, lastUpdated) = getTraits()
-    colorSchemes = getColorSchemes()
+    (traits, lastUpdated) = get_traits("static/traits.json")
+    colorSchemes = get_color_schemes("static/colorSchemes.json")
     return render_template(
         "index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated
     )
 
 
-def getTraits():
+def get_traits(traits_filepath: str):
     lastUpdated = ""
     traits = {}
-    with open("static/traits.json", "r", encoding="utf-8") as traitsFile:
+    with open(traits_filepath, "r", encoding="utf-8") as traitsFile:
         traitsJson = json.loads(traitsFile.read())
         lastUpdated = traitsJson["updated"]
         for traitName in sorted(traitsJson["traits"].keys()):
@@ -31,8 +31,8 @@ def getTraits():
     return traits, lastUpdated
 
 
-def getColorSchemes():
-    with open("static/colorSchemes.json", "r", encoding="utf-8") as schemesFile:
+def get_color_schemes(colors_filepath:str):
+    with open(colors_filepath, "r", encoding="utf-8") as schemesFile:
         schemesJson = json.loads(schemesFile.read())
         return schemesJson["Color Schemes"]
 
