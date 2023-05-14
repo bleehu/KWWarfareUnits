@@ -82,7 +82,8 @@
 	}
 
 	function PrependPlusIfAbsent(statNumber){
-		if (statNumber.charAt(0) != '+') 
+		startingChar = statNumber.charAt(0);
+		if (startingChar != '+' && startingChar != '-') 
 			statNumber = '+' + statNumber
 		return statNumber;
 	}
