@@ -163,6 +163,9 @@
 				UpdateFaction(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Faction.");}
 			try{
+				UpdateCopymark(contextToAddTo);
+			} catch {console.log("WARNING!: failed to update Copymark.");}
+			try{
 				UpdateBanner(contextToAddTo);
 			} catch(error) {console.log("WARNING!: failed to update Banner." + error);}
 			try{
@@ -191,6 +194,15 @@
 			contextToAddTo.drawImage(factionIcon, 166, 81);
 		}
 		factionIcon.src = `static/img/factions/${ancestry}.png`;
+	}
+
+	function UpdateCopymark(contextToAddTo){
+		var maker = $("#makerInput").val();
+		var copymark = new Image();
+		copymark.onload = () => {
+			contextToAddTo.drawImage(copymark, 378, 533);
+		}
+		copymark.src = `static/img/copymarks/${maker}.png`;
 	}
 
 	function UpdateBanner(contextToAddTo){
