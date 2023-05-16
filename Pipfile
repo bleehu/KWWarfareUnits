@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 flask = "*"
+kingdomsandwarfare = {editable = true, path = "./../PyMCDMKingdomsAndWarfare"}
 
 [dev-packages]
 pytest-cov = "*"
