@@ -279,7 +279,8 @@
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
 			contentType : "application/json",
-			type:"POST"
+			type:"POST",
+			dataType:"json"
 		})
 	}
 

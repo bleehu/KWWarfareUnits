@@ -1,7 +1,6 @@
 import json
 import pdb
 
-from flask import csrf
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -20,16 +19,15 @@ def render_index():
         "index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated
     )
 
-@csrf.exempt #https://stackoverflow.com/questions/22854749/flask-and-ajax-post-http-400-bad-request-error
+
 @app.route("/api/v1/colors", methods=["GET", "POST", "DELETE"])
 def api_colors():
     if request.method == 'GET':
         return json.dumps(getColorSchemes("static/", "colorSchemes.json"))
     elif request.method == 'POST':
-        return add_new_color_scheme(request.form, "static/", "colorSchemes.json")
+        return add_new_color_scheme(request.get_json(), "static/", "colorSchemes.json")
     elif request.method == 'DELETE':
-        return delete_color_scheme(request.form, "static/", "colorSchemes.json")
-
+        return delete_color_scheme(request.get_json(), "static/", "colorSchemes.json")
 
 
 def getTraits():
@@ -53,7 +51,7 @@ def add_new_color_scheme(new_scheme_dict: dict, schemes_filepath: str, schemes_f
         schemes_file.write(json.dumps(schemes_json))
 
 def delete_color_scheme(form_dict: dict, schemes_filepath: str, schemes_filename: str):
-    name_of_scheme_to_delte = form_dict["to_delete"]
+    name_of_scheme_to_delete = form_dict["to_delete"]
 
 def getColorSchemes(schemes_filepath: str, schemes_filename: str):
     with open(f"{schemes_filepath}/{schemes_filename}", "r", encoding="utf-8") as schemes_file:
