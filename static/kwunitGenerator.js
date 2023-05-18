@@ -42,6 +42,10 @@
     	});
 
     	$(".referenceSubPanel").hide();
+
+		$("#saveColorButton").click(() => {
+			SaveColor();
+		})
     }
 
 	function UpdateUnitCard(){
@@ -254,6 +258,29 @@
 		contextToAddTo.fillStyle = getLightColor();
 		var damage = $("#unitDamageInput").val();
 		contextToAddTo.fillText(damage, 110, 490);
+	}
+
+	function SaveColor(){
+		var backgroundColor = $("#backgroundColor").val();
+		var lightColor = $("#lightColor").val();
+		var darkColor = $("#darkColor").val();
+		var filigreeColor = $("#filigreeColor").val();
+		var schemeName = $("#colorSchemeNameInput").val();
+		if (schemeName.trim() == ""){
+			console.warn("Did not save color scheme, blank name.");
+			return;
+		}
+		var jsonData = {"name":schemeName,
+				"backgroundColor":backgroundColor,
+				"lightColor":lightColor,
+				"darkColor":darkColor,
+				"filigreeColor":filigreeColor
+			}
+		$.ajax("/api/v1/colors",{
+			data : JSON.stringify(jsonData),
+			contentType : "application/json",
+			type:"POST"
+		})
 	}
 
 })();

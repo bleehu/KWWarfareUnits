@@ -9,6 +9,7 @@ pytest = "*"
 black = "*"
 isort = "*"
 flake8 = "*"
+kingdomsandwarfare = "*"
 
 [dev-packages]
 pytest-cov = "*"
