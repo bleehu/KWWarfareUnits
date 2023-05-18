@@ -1,13 +1,6 @@
-class Color:
-
-    def __init__(self, red: str, green: str, blue: str):
-        self.red = red
-        self.green = green
-        self.blue = blue
-    
 class ColorScheme:
     
-    def __init__(self, name:str, background_color:Color, light_color: Color, dark_color: Color, filigree_color:Color):
+    def __init__(self, name:str, background_color:str, light_color: str, dark_color: str, filigree_color:str):
         self.name = name
         self.light_color = light_color
         self.dark_color = dark_color
@@ -15,12 +8,19 @@ class ColorScheme:
         self.filigree_color = filigree_color
 
     def __init__(self, data_dict:dict):
-        background_color = Color(data_dict["background_red"], data_dict["background_green"], data_dict["background_blue"])
-        light_color = Color(data_dict["light_red"], data_dict["light_green"], data_dict["light_blue"])
-        dark_color = Color(data_dict["dark_red"], data_dict["dark_green"], data_dict["dark_blue"])
-        filigree_color = Color(data_dict["filigree_red"], data_dict["filigree_green"], data_dict["filigree_blue"])
+        background_color = data_dict["backgroundColor"]
+        light_color = data_dict["lightColor"]
+        dark_color = data_dict["darkColor"]
+        filigree_color = data_dict["filigreeColor"]
         self.background_color = background_color
         self.light_color = light_color
         self.dark_color = dark_color
         self.filigree_color = filigree_color
-        self.name = data_dict["name"]    
+        self.name = data_dict["name"]
+    
+    def toJSON(self):
+        return {"name": self.name,
+                      "Background Color": self.background_color,
+                      "Light Color": self.light_color,
+                      "Dark Color": self.dark_color,
+                      "Filigree Color": self.filigree_color}

@@ -46,15 +46,21 @@ def add_new_color_scheme(new_scheme_dict: dict, schemes_filepath: str, schemes_f
     new_scheme = ColorScheme(new_scheme_dict)
     with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
         schemes_json = json.loads(schemes_file.read())
-        schemes_json["Color Schemes"][new_scheme.name] = new_scheme
+        schemes_json["Color Schemes"].append(new_scheme.toJSON())
+        schemes_file.seek(0)
+        schemes_file.truncate()
         schemes_file.write(json.dumps(schemes_json))
+    return {"Success":True}
 
 def delete_color_scheme(form_dict: dict, schemes_filepath: str, schemes_filename: str):
     name_of_scheme_to_delete = form_dict["to_delete"]
     with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
         schemes_json = json.loads(schemes_file.read())
         schemes_json.pop(name_of_scheme_to_delete)
+        schemes_file.seek(0)
+        schemes_file.truncate()
         schemes_file.write(json.dumps(schemes_json))
+    return {"Success":True}
 
 def getColorSchemes(schemes_filepath: str, schemes_filename: str):
     with open(f"{schemes_filepath}/{schemes_filename}", "r", encoding="utf-8") as schemes_file:
