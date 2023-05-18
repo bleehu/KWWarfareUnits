@@ -46,6 +46,11 @@
 		$("#saveColorButton").click(() => {
 			SaveColor();
 		})
+
+		$("#deleteColorButton").click(() => {
+			DeleteColor();
+		})
+
     }
 
 	function UpdateUnitCard(){
@@ -275,6 +280,22 @@
 				"lightColor":lightColor,
 				"darkColor":darkColor,
 				"filigreeColor":filigreeColor
+			}
+		$.ajax("/api/v1/colors",{
+			data : JSON.stringify(jsonData),
+			contentType : "application/json",
+			type:"POST",
+			dataType:"json"
+		})
+	}
+
+	function DeleteColor(){
+		var schemeName = $("#colorSchemeNameInput").val();
+		if (schemeName.trim() == ""){
+			console.warn("Did not delete color scheme, blank name.");
+			return;
+		}
+		var jsonData = {"name":schemeName
 			}
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),

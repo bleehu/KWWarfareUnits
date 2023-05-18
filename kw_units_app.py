@@ -47,11 +47,14 @@ def add_new_color_scheme(new_scheme_dict: dict, schemes_filepath: str, schemes_f
     with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
         schemes_json = json.loads(schemes_file.read())
         schemes_json["Color Schemes"][new_scheme.name] = new_scheme
-        pdb.set_trace()
         schemes_file.write(json.dumps(schemes_json))
 
 def delete_color_scheme(form_dict: dict, schemes_filepath: str, schemes_filename: str):
     name_of_scheme_to_delete = form_dict["to_delete"]
+    with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
+        schemes_json = json.loads(schemes_file.read())
+        schemes_json.pop(name_of_scheme_to_delete)
+        schemes_file.write(json.dumps(schemes_json))
 
 def getColorSchemes(schemes_filepath: str, schemes_filename: str):
     with open(f"{schemes_filepath}/{schemes_filename}", "r", encoding="utf-8") as schemes_file:
