@@ -17,6 +17,7 @@ jobs:
         python-version: 3.11
     - name: Generate coverage report
       run: |
+        pip install pipenv
         pipenv install
         pipenv install pytest-cov
         pipenv run pytest --cov=./ --cov-report=xml
