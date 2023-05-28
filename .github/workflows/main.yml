@@ -19,7 +19,6 @@ jobs:
       run: |
         pip install pipenv
         pipenv install --dev
-        pipenv install pytest-cov
         pipenv run pytest --cov=./ --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3

@@ -1,10 +1,15 @@
 from operator import contains
-from ..helper_add_traits import loadTraitsFromJSON, showTraits
+
 import pytest
+
+from ..helper_add_traits import loadTraitsFromJSON
+from ..helper_add_traits import showTraits
+
 
 def test_load_traits_from_json(tmp_path):
     save_test_json_file(tmp_path)
     loadTraitsFromJSON(tmp_path / "tmp.json")
+
 
 def test_showTraits(capfd, tmp_path):
     save_test_json_file(tmp_path)
@@ -17,7 +22,8 @@ def test_showTraits(capfd, tmp_path):
 
 def save_test_json_file(tmp_path) -> None:
     temp_json_filepath = tmp_path / "tmp.json"
-    temp_json_filepath.write_text("""
+    temp_json_filepath.write_text(
+        """
     {
     "updated": "2023-05-27 17:22:21.816304",
     "traits": {
@@ -34,4 +40,5 @@ def save_test_json_file(tmp_path) -> None:
             "homebrew": true
         }
     }
-    """)
+    """
+    )

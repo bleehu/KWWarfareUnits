@@ -40,6 +40,7 @@ def loadTraitsFromJSON(traits_json_filepath):
             newTrait.homebrew = trait["homebrew"]
             DATABASE["traits"][newTrait.name] = newTrait
 
+
 def saveTraits():
     print("saving work.")
     saveData = {"updated": str(datetime.now()), "traits": {}}
@@ -50,6 +51,7 @@ def saveTraits():
         newtraits = json.dumps(saveData)
         traitsFile.write(newtraits)
     print("work saved.")
+
 
 def loadFromTextFile():
     """expects a text file containing names of traits where every odd-numbered line
