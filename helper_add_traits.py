@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from KingdomsAndWarfare.Traits.Traits import Trait
+from Traits.Trait import Trait
 
 TRAITS_FILE = "static/traits.json"
 DATABASE = {"traits": {}}
