@@ -7,12 +7,12 @@ from ..helper_add_traits import showTraits
 
 
 def test_load_traits_from_json(tmp_path):
-    save_test_json_file(tmp_path)
+    save_test_trait_file(tmp_path)
     loadTraitsFromJSON(tmp_path / "tmp.json")
 
 
 def test_showTraits(capfd, tmp_path):
-    save_test_json_file(tmp_path)
+    save_test_trait_file(tmp_path)
     loadTraitsFromJSON(tmp_path / "tmp.json")
     showTraits()
     stdout, stderr = capfd.readouterr()
@@ -20,7 +20,7 @@ def test_showTraits(capfd, tmp_path):
     assert "Camel Riders" in stdout
 
 
-def save_test_json_file(tmp_path) -> None:
+def save_test_trait_file(tmp_path) -> None:
     temp_json_filepath = tmp_path / "tmp.json"
     temp_json_filepath.write_text(
         """
@@ -39,6 +39,6 @@ def save_test_json_file(tmp_path) -> None:
             "created": "2023-04-01 16:31:16.149699",
             "homebrew": true
         }
-    }
+    }}
     """
     )
