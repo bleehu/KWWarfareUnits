@@ -6,15 +6,15 @@ from flask import render_template
 from flask import request
 from Traits.Trait import Trait
 
-from ColorSchemes.ColorScheme import ColorScheme
+from .ColorSchemes.ColorScheme import ColorScheme
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def render_index():
-    (traits, lastUpdated) = getTraits()
-    colorSchemes = getColorSchemes("static/", "colorSchemes.json")
+    (traits, lastUpdated) = get_traits("static/traits.json")
+    colorSchemes = get_color_schemes("static/", "colorSchemes.json")
     return render_template(
         "index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated
     )
@@ -23,17 +23,17 @@ def render_index():
 @app.route("/api/v1/colors", methods=["GET", "POST", "DELETE"])
 def api_colors():
     if request.method == "GET":
-        return json.dumps(getColorSchemes("static/", "colorSchemes.json"))
+        return json.dumps(get_color_schemes("static/", "colorSchemes.json"))
     elif request.method == "POST":
         return add_new_color_scheme(request.get_json(), "static/", "colorSchemes.json")
     elif request.method == "DELETE":
         return delete_color_scheme(request.get_json(), "static/", "colorSchemes.json")
 
 
-def getTraits():
+def get_traits(traits_json_filepath):
     lastUpdated = ""
     traits = {}
-    with open("static/traits.json", "r", encoding="utf-8") as traitsFile:
+    with open(traits_json_filepath, "r", encoding="utf-8") as traitsFile:
         traitsJson = json.loads(traitsFile.read())
         lastUpdated = traitsJson["updated"]
         for traitName in sorted(traitsJson["traits"].keys()):
@@ -64,7 +64,7 @@ def delete_color_scheme(form_dict: dict, schemes_filepath: str, schemes_filename
     return {"Success": True}
 
 
-def getColorSchemes(schemes_filepath: str, schemes_filename: str):
+def get_color_schemes(schemes_filepath: str, schemes_filename: str):
     with open(f"{schemes_filepath}/{schemes_filename}", "r", encoding="utf-8") as schemes_file:
         schemesJson = json.loads(schemes_file.read())
         return schemesJson["Color Schemes"]
