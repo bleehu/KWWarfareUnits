@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from Traits.Trait import Trait
+from KingdomsAndWarfare.Traits.Trait import Trait
 from ColorSchemes.ColorScheme import ColorScheme
 
 app = Flask(__name__)
@@ -37,7 +37,7 @@ def getTraits():
         traitsJson = json.loads(traitsFile.read())
         lastUpdated = traitsJson["updated"]
         for traitName in sorted(traitsJson["traits"].keys()):
-            newTrait = Trait.fromDict(traitsJson["traits"][traitName])
+            newTrait = Trait.from_dict(traitsJson["traits"][traitName])
             traits[traitName] = newTrait
     return traits, lastUpdated
 
