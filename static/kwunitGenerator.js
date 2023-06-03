@@ -47,6 +47,10 @@
 			SaveColor();
 		})
 
+		$("#loadColorButton").click(() => {
+			LoadColor();
+		})
+
 		$("#deleteColorButton").click(() => {
 			DeleteColor();
 		})
@@ -91,7 +95,8 @@
 	}
 
 	function PrependPlusIfAbsent(statNumber){
-		if (statNumber.charAt(0) != '+') 
+		startingChar = statNumber.charAt(0);
+		if (startingChar != '+' && startingChar != '-') 
 			statNumber = '+' + statNumber
 		return statNumber;
 	}
@@ -171,6 +176,9 @@
 				UpdateFaction(contextToAddTo);
 			} catch {console.log("WARNING!: failed to update Faction.");}
 			try{
+				UpdateCopymark(contextToAddTo);
+			} catch {console.log("WARNING!: failed to update Copymark.");}
+			try{
 				UpdateBanner(contextToAddTo);
 			} catch(error) {console.log("WARNING!: failed to update Banner." + error);}
 			try{
@@ -199,6 +207,15 @@
 			contextToAddTo.drawImage(factionIcon, 166, 81);
 		}
 		factionIcon.src = `static/img/factions/${ancestry}.png`;
+	}
+
+	function UpdateCopymark(contextToAddTo){
+		var maker = $("#makerInput").val();
+		var copymark = new Image();
+		copymark.onload = () => {
+			contextToAddTo.drawImage(copymark, 378, 533);
+		}
+		copymark.src = `static/img/copymarks/${maker}.png`;
 	}
 
 	function UpdateBanner(contextToAddTo){
@@ -289,6 +306,20 @@
 		})
 	}
 
+	function LoadColor(){
+		var colorName = $("#colorSelect").val();
+		console.log("background color: " + colorName);
+		var backgroundColor = $("#colorSelect").find(":selected").data("background-color");
+		var lightColor = $("#colorSelect").find(":selected").data("light-color");
+		var darkColor = $("#colorSelect").find(":selected").data("dark-color");
+		var filigreeColor = $("#colorSelect").find(":selected").data("filigree-color");
+		console.log("background color: " + backgroundColor);
+		$("#backgroundColor").val(backgroundColor);
+		$("#darkColor").val(darkColor);
+		$("#lightColor").val(lightColor);
+		$("#filigreeColor").val(filigreeColor);
+	}
+
 	function DeleteColor(){
 		var schemeName = $("#colorSchemeNameInput").val();
 		if (schemeName.trim() == ""){
@@ -304,5 +335,15 @@
 			dataType:"json"
 		})
 	}
+
+	function componentToHex(c) {
+		var hex = c.toString(16);
+		return hex.length == 1 ? "0" + hex : hex;
+	  }
+	  
+	  function rgbToHex(r, g, b) {
+		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+	  }
+	  
 
 })();

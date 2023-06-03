@@ -5,14 +5,14 @@ name = "pypi"
 
 [packages]
 flask = "*"
-pytest = "*"
-black = "*"
-isort = "*"
-flake8 = "*"
 kingdomsandwarfare = "*"
 
 [dev-packages]
+black = "*"
+isort = "*"
+flake8 = "*"
+pytest = "*"
 pytest-cov = "*"
 
 [requires]
-python_version = "3.10"
+python_version = "3.11"
