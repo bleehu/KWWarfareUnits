@@ -41,6 +41,11 @@
     		$("#colorSchemes").show();
     	});
 
+    	$("#upgradeReferenceButton").click(() => {
+    		$(".referenceSubPanel").hide();
+    		$("#upgradeReference").show();
+    	});
+
     	$(".referenceSubPanel").hide();
 
 		$("#saveColorButton").click(() => {
@@ -53,6 +58,22 @@
 
 		$("#deleteColorButton").click(() => {
 			DeleteColor();
+		})
+
+		$("#levelupButton").click(() => {
+			UnitTools("level_up");
+		})
+
+		$("#leveldownButton").click(() => {
+			UnitTools("level_down");
+		})
+
+		$("#upgradeButton").click(() => {
+			UnitTools("upgrade");
+		})
+
+		$("#downgradeButton").click(() => {
+			UnitTools("downgrade");
 		})
 
     }
@@ -280,6 +301,63 @@
 		contextToAddTo.fillStyle = getLightColor();
 		var damage = $("#unitDamageInput").val();
 		contextToAddTo.fillText(damage, 110, 490);
+	}
+
+	function UnitTools(api){
+		var unitData = GetUnitData();
+		$.ajax("/api/v1/unittools/" + api,{
+			data : JSON.stringify(unitData),
+			contentType : "application/json",
+			type:"POST",
+			dataType:"json",
+			success: UpdateUnitData,
+			error: LevelUpFail
+		})
+	}
+
+	function GetUnitData(){
+		console.log("getting unit data.");
+		var unitData = {};
+		unitData["name"] = $("#unitNameInput").val().trim();
+		unitData["ancestry"] = $("#unitAncestryInput").val().trim();
+		unitData["attack"] = parseInt($("#atkInput").val());
+		unitData["attacks"] = parseInt($("#unitAttacksInput").val());
+		unitData["battles"] = 0;
+		unitData["command"] = parseInt($("#comInput").val());
+		unitData["damage"] = parseInt($("#unitDamageInput").val());
+		unitData["defense"] = parseInt($("#defInput").val());
+		unitData["description"] = $("#unitDescriptionInput").val().trim();
+		unitData["equipment"] = $("#unitWeightInput").val().trim();
+		unitData["experience"] = $("#unitExperienceInput").val().trim();
+		unitData["morale"] = parseInt($("#morInput").val());
+		unitData["power"] = parseInt($("#powInput").val());
+		unitData["tier"] = $("#unitTierInput").val().trim();
+		unitData["toughness"] = parseInt($("#touInput").val());
+		unitData["size"] = $("#unitSizeInput").val();
+		//traits intentionally left unhandled.
+		unitData["traits"] = [];
+		unitData["type"] = $("#unitTypeInput").val().trim();
+		console.log("got unit data.");
+		return unitData;
+	}
+
+	function UpdateUnitData(data){
+		$("#atkInput").val(data["attack"]);
+		$("#defInput").val(data["defense"]);
+		$("#powInput").val(data["power"]);
+		$("#touInput").val(data["toughness"]);
+		$("#morInput").val(data["morale"]);
+		$("#comInput").val(data["command"]);
+		$("#unitWeightInput").val(data["equipment"]);
+		$("#unitExperienceInput").val(data["experience"]);
+		$("#unitAttacksInput").val(data["attacks"]);
+		$("#unitDamageInput").val(data["damage"]);
+		console.log(data);
+		UpdateUnitCard();
+	}
+
+	function LevelUpFail(){
+		alert("Something went wrong. Are you trying to level up Levies, or change experience past the possible range?");
 	}
 
 	function SaveColor(){
