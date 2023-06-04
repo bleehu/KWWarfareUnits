@@ -316,7 +316,6 @@
 	}
 
 	function GetUnitData(){
-		console.log("getting unit data.");
 		var unitData = {};
 		unitData["name"] = $("#unitNameInput").val().trim();
 		unitData["ancestry"] = $("#unitAncestryInput").val().trim();
@@ -337,7 +336,6 @@
 		//traits intentionally left unhandled.
 		unitData["traits"] = [];
 		unitData["type"] = $("#unitTypeInput").val().trim();
-		console.log("got unit data.");
 		return unitData;
 	}
 
@@ -348,8 +346,13 @@
 		$("#touInput").val(data["toughness"]);
 		$("#morInput").val(data["morale"]);
 		$("#comInput").val(data["command"]);
-		$("#unitWeightInput").val(data["equipment"]);
-		$("#unitExperienceInput").val(data["experience"]);
+		var equipment = data["equipment"];
+		equipment = equipment.charAt(0).toUpperCase() + equipment.slice(1).toLowerCase();
+		$("#unitWeightInput").val(equipment);
+		var experience = data["experience"];
+		experience = experience.charAt(0).toUpperCase() + experience.slice(1).toLowerCase();
+		console.log("Experience: " + experience);
+		$("#unitExperienceInput").val(experience);
 		$("#unitAttacksInput").val(data["attacks"]);
 		$("#unitDamageInput").val(data["damage"]);
 		console.log(data);
