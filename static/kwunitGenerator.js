@@ -355,7 +355,6 @@
 		$("#unitExperienceInput").val(experience);
 		$("#unitAttacksInput").val(data["attacks"]);
 		$("#unitDamageInput").val(data["damage"]);
-		console.log(data);
 		UpdateUnitCard();
 	}
 
