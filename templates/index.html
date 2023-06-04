@@ -41,7 +41,7 @@
 							<option value="Regular">Regular</option>
 							<option value="Veteran">Veteran</option>
 							<option value="Elite">Elite</option>
-							<option value="Super-Elite">Super-Elite</option>
+							<option value="Super_elite">Super-elite</option>
 						</select>
 					</div>
 					<div class="statGroup">
@@ -50,7 +50,7 @@
 							<option value="Light">Light</option>
 							<option value="Medium">Medium</option>
 							<option value="Heavy">Heavy</option>
-							<option value="Super-Heavy">Super-Heavy</option>
+							<option value="Super_Heavy">Super-Heavy</option>
 						</select>
 					</div>
 					<div class="statGroup">
@@ -153,6 +153,8 @@
 			<canvas id="unitCanvas" width="851" height="609" >
 			</canvas>
 			<img src="static/img/Blank unit card background.png" alt="this is the background for the card." width="40px">
+			<label for="unitDescriptionInput">Description:</label>
+			<textarea id="unitDescriptionInput"></textarea>
 		</div>
 
 		<div id="referencePanel" class="mainPanel">
@@ -164,6 +166,7 @@
 				<input type="button" name="" id="cavalryReferenceButton" value="Cavalry Card Reference">
 				<input type="button" name="" id="ancestryReferenceButton" value="Ancestry Reference">
 				<input type="button" name="" id="colorReferenceButton" value="Color Schemes">
+				<input type="button" name="" id="upgradeReferenceButton" value="Level Up">
 			</div>
 			<div id="unitTraitsReference" class="referenceSubPanel">
 				<h2>Unit Traits</h2>
@@ -246,6 +249,12 @@
 					<dd class="colorSchemePreview" style="border-left: 18px solid {{colorScheme["Filigree Color"]}}"> Filigree Color: {{colorScheme["Filigree Color"]}} </dd>
 					{% endfor %}
 				</dl>
+			</div>
+			<div id="upgradeReference" class="referenceSubPanel">
+				<input type="button" value="Level Up" id="levelupButton" />
+				<input type="button" value="Level Down" id="leveldownButton" />
+				<input type="button" value="Upgrade" id="upgradeButton" />
+				<input type="button" value="Downgrade" id="downgradeButton" />
 			</div>
 		</div>
 			
