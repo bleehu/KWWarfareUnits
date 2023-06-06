@@ -11,9 +11,13 @@ def choose():
     userInput = input(">").strip()
     if userInput == "show":
         showTraits()
-    elif userInput == "x" or userInput == "exit" or userInput == "q" or userInput == "quit":
+    elif userInput.lower() == "x" or userInput.lower() == "exit" or userInput.lower() == "q" or userInput.lower() == "quit":
         saveTraits()
         exit()
+    elif userInput.lower() == "help" or userInput.lower() == "h":
+        help()
+    elif userInput.lower() == "s" or userInput.lower() == "save":
+        saveTraits()
     else:
         newTrait(userInput)
 
@@ -46,7 +50,7 @@ def saveTraits():
     saveData = {"updated": str(datetime.now()), "traits": {}}
     for traitName in DATABASE["traits"]:
         trait = DATABASE["traits"][traitName]
-        saveData["traits"][traitName] = trait.toDict()
+        saveData["traits"][traitName] = trait.to_dict()
     with open(TRAITS_FILE, "w", encoding="utf-8") as traitsFile:
         newtraits = json.dumps(saveData)
         traitsFile.write(newtraits)
@@ -71,10 +75,12 @@ def loadFromTextFile():
             newTrait = Trait(traitName, traitDescription)
             DATABASE["traits"][traitName] = newTrait
 
+def help():
+    print('Either type a new trait name, or type "show" to see current trait list, or "x" to exit.')
 
 if __name__ == "__main__":
     loadTraitsFromJSON(TRAITS_FILE)
-    print('Either type a new trait name, or type "show" to see current trait list, or "x" to exit.')
+    help()
     chooseCount = 0
     # loadFromTextFile()
     while True:
