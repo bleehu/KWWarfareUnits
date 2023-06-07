@@ -326,8 +326,8 @@
 		unitData["damage"] = parseInt($("#unitDamageInput").val());
 		unitData["defense"] = parseInt($("#defInput").val());
 		unitData["description"] = $("#unitDescriptionInput").val().trim();
-		unitData["equipment"] = $("#unitWeightInput").val().trim();
-		unitData["experience"] = $("#unitExperienceInput").val().trim();
+		unitData["equipment"] = getEquipment();
+		unitData["experience"] = getExperience();
 		unitData["morale"] = parseInt($("#morInput").val());
 		unitData["power"] = parseInt($("#powInput").val());
 		unitData["tier"] = $("#unitTierInput").val().trim();
@@ -339,6 +339,20 @@
 		return unitData;
 	}
 
+	function getExperience(){
+		experience = $("#unitExperienceInput").val().trim();
+		if (experience == "Super-Elite")
+			experience = "SUPER_ELITE";
+		return experience
+	}
+
+	function getEquipment(){
+		equipment = $("#unitWeightInput").val().trim();
+		if (equipment == "Super-Heavy")
+			equipment = "SUPER_HEAVY";
+		return equipment
+	}
+
 	function UpdateUnitData(data){
 		$("#atkInput").val(data["attack"]);
 		$("#defInput").val(data["defense"]);
@@ -346,16 +360,31 @@
 		$("#touInput").val(data["toughness"]);
 		$("#morInput").val(data["morale"]);
 		$("#comInput").val(data["command"]);
-		var equipment = data["equipment"];
-		equipment = equipment.charAt(0).toUpperCase() + equipment.slice(1).toLowerCase();
-		$("#unitWeightInput").val(equipment);
-		var experience = data["experience"];
-		experience = experience.charAt(0).toUpperCase() + experience.slice(1).toLowerCase();
-		console.log("Experience: " + experience);
-		$("#unitExperienceInput").val(experience);
+		UpdateEquipment(data["equipment"]);
+		UpdateExperience(data["experience"]);
 		$("#unitAttacksInput").val(data["attacks"]);
 		$("#unitDamageInput").val(data["damage"]);
 		UpdateUnitCard();
+	}
+
+	function UpdateEquipment(equipment){
+		console.log("Equipment: " + equipment);
+		var equipmentoption = "Light"
+		if (equipment == "SUPER_HEAVY")
+			equipmentoption = "Super-Heavy";
+		else
+			equipmentoption = equipment.charAt(0).toUpperCase() + equipment.slice(1).toLowerCase();
+		$("#unitWeightInput").val(equipmentoption);
+	}
+
+	function UpdateExperience(experience){
+		console.log("Experience: " + experience);
+		var experienceOption = "Regular"
+		if (experience == "SUPER_ELITE")
+			experienceOption = "Super-Elite";
+		else
+		experienceOption = experience.charAt(0).toUpperCase() + experience.slice(1).toLowerCase();
+		$("#unitExperienceInput").val(experienceOption);
 	}
 
 	function LevelUpFail(){
