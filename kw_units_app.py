@@ -12,7 +12,7 @@ from KingdomsAndWarfare.Units.Artillery import Artillery
 from KingdomsAndWarfare.Units.Cavalry import Cavalry
 
 
-from ColorSchemes.ColorScheme import ColorScheme
+from .ColorSchemes.ColorScheme import ColorScheme
 
 app = Flask(__name__)
 
