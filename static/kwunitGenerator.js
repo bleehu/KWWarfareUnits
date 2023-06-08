@@ -268,7 +268,6 @@
 
 	function UpdateTraits(contextToAddTo){
 		contextToAddTo.fillStyle = getDarkColor();
-		//contextToAddTo.font = "32px Verdana";
 		contextToAddTo.textAlign = "left";
 		var TraitX = 220;
 		var TraitY = 390;
