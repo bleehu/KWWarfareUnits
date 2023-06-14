@@ -268,12 +268,13 @@
 
 	function UpdateTraits(contextToAddTo){
 		contextToAddTo.fillStyle = getDarkColor();
-		contextToAddTo.font = "32px Verdana";
 		contextToAddTo.textAlign = "left";
 		var TraitX = 220;
 		var TraitY = 390;
 		for (var i = 1; i <= 4; i++) {
 			var trait = $(`#unitTrait${i}Input`).val();
+			var fontSize = $(`#traitSizeInput${i}`).val();
+			contextToAddTo.font = `${fontSize}pt Verdana`;
 			contextToAddTo.fillText(trait, TraitX, TraitY + ((i - 1) * 40));
 		}
 	}
