@@ -442,11 +442,11 @@
 
 		//Save to file by POST to API
 		var jsonData = {"name":schemeName,
-				"backgroundColor":backgroundColor,
-				"lightColor":lightColor,
-				"darkColor":darkColor,
-				"filigreeColor":filigreeColor
-			}
+			"backgroundColor":backgroundColor,
+			"lightColor":lightColor,
+			"darkColor":darkColor,
+			"filigreeColor":filigreeColor
+		}
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
 			contentType : "application/json",
@@ -454,7 +454,7 @@
 			dataType:"json"
 		});
 		
-		alert(schemeName + " Color Scheme Saved.");
+		alert(schemeName + " color scheme saved.");
 	}
 
 	function LoadColor(){
@@ -472,19 +472,32 @@
 	}
 
 	function DeleteColor(){
-		var schemeName = $("#colorSchemeNameInput").val();
-		if (schemeName.trim() == ""){
-			console.warn("Did not delete color scheme, blank name.");
-			return;
+		var schemeName = $("#colorSelect").val();
+
+		//dynamically remove option from dropdown
+		document.getElementById("colorSelect").remove(document.getElementById("colorSelect").selectedIndex);
+
+		//dynamically remove entry from color scheme list
+		var rows = document.getElementsByClassName(schemeName + "Preview");
+		while (rows.length > 0) {
+			rows[0].remove();
 		}
-		var jsonData = {"name":schemeName
-			}
+
+		//Delete from file by DELETE to API
+		var jsonData = {"name":schemeName,
+			"backgroundColor":backgroundColor,
+			"lightColor":lightColor,
+			"darkColor":darkColor,
+			"filigreeColor":filigreeColor
+		}
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
 			contentType : "application/json",
-			type:"POST",
+			type:"DELETE",
 			dataType:"json"
-		})
+		});
+		
+		alert(schemeName + " color scheme deleted.");
 	}
 
 	function componentToHex(c) {

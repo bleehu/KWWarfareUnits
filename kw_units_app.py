@@ -95,10 +95,10 @@ def add_new_color_scheme(new_scheme_dict: dict, schemes_filepath: str, schemes_f
 
 
 def delete_color_scheme(form_dict: dict, schemes_filepath: str, schemes_filename: str):
-    name_of_scheme_to_delete = form_dict["to_delete"]
+    name_of_scheme_to_delete = form_dict["name"]
     with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
         schemes_json = loads(schemes_file.read())
-        schemes_json.pop(name_of_scheme_to_delete)
+        schemes_json["Color Schemes"] = [scheme for scheme in schemes_json["Color Schemes"] if scheme['name'] != name_of_scheme_to_delete]
         schemes_file.seek(0)
         schemes_file.truncate()
         schemes_file.write(dumps(schemes_json))
