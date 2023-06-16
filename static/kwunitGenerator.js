@@ -402,6 +402,45 @@
 			console.warn("Did not save color scheme, blank name.");
 			return;
 		}
+
+		//dynamically create new option in dropdown
+		var option = document.createElement('option');
+		option.value = schemeName;
+		option.setAttribute("data-background-color", backgroundColor);
+		option.setAttribute("data-dark-color", darkColor);
+		option.setAttribute("data-light-color", lightColor);
+		option.setAttribute("data-filigree-color", filigreeColor);
+		option.innerHTML = schemeName;
+		document.getElementById("colorSelect").appendChild(option);
+
+		//dynamically create new entry in color scheme list
+		var entryName = document.createElement('dt');
+		entryName.class = "colorSchemeName";
+		entryName.innerHTML = schemeName;
+		var entryBg = document.createElement('dd');
+		entryBg.class = "colorSchemePreview";
+		entryBg.style.borderLeft = "18px solid " + backgroundColor;
+		entryBg.innerHTML = "Background Color: " + backgroundColor;
+		var entryDark = document.createElement('dd');
+		entryDark.class = "colorSchemePreview";
+		entryDark.style.borderLeft = "18px solid " + darkColor;
+		entryDark.innerHTML = "Dark Color: " + darkColor;
+		var entryLight = document.createElement('dd');
+		entryLight.class = "colorSchemePreview";
+		entryLight.style.borderLeft = "18px solid " + lightColor;
+		entryLight.innerHTML = "Light Color: " + lightColor;
+		var entryFiligree = document.createElement('dd');
+		entryFiligree.class = "colorSchemePreview";
+		entryFiligree.style.borderLeft = "18px solid " + filigreeColor;
+		entryFiligree.innerHTML = "Filigre Color: " + filigreeColor;
+		var table = document.getElementById("colorSchemesTable");
+		table.appendChild(entryName);
+		table.appendChild(entryBg);
+		table.appendChild(entryDark);
+		table.appendChild(entryLight);
+		table.appendChild(entryFiligree);
+
+		//Save to file by POST to API
 		var jsonData = {"name":schemeName,
 				"backgroundColor":backgroundColor,
 				"lightColor":lightColor,
@@ -413,7 +452,9 @@
 			contentType : "application/json",
 			type:"POST",
 			dataType:"json"
-		})
+		});
+		
+		alert(schemeName + " Color Scheme Saved.");
 	}
 
 	function LoadColor(){
