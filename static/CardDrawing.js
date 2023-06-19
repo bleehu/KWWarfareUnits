@@ -176,8 +176,6 @@ function drawCircle(contextToAddTo, centerX, centerY, radius, color){
     contextToAddTo.strokeStyle = color;
     contextToAddTo.beginPath();
     contextToAddTo.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    contextToAddTo.stroke();
-    contextToAddTo.closePath();
     contextToAddTo.fill();
 }
 
