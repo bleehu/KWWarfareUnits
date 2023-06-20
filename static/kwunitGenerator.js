@@ -402,59 +402,9 @@
 			console.warn("Did not save color scheme, blank name.");
 			return;
 		}
-
-		//dynamically create new option in dropdown
-		var option = document.createElement('option');
-		option.value = schemeName;
-		option.setAttribute("data-background-color", backgroundColor);
-		option.setAttribute("data-dark-color", darkColor);
-		option.setAttribute("data-light-color", lightColor);
-		option.setAttribute("data-filigree-color", filigreeColor);
-		option.innerHTML = schemeName;
-		document.getElementById("colorSelect").appendChild(option);
-
-		//dynamically create new entry in color scheme list
-		var entryName = document.createElement('dt');
-		entryName.class = "colorSchemeName";
-		entryName.innerHTML = schemeName;
-		var entryBg = document.createElement('dd');
-		entryBg.class = "colorSchemePreview";
-		entryBg.style.borderLeft = "18px solid " + backgroundColor;
-		entryBg.innerHTML = "Background Color: " + backgroundColor;
-		var entryDark = document.createElement('dd');
-		entryDark.class = "colorSchemePreview";
-		entryDark.style.borderLeft = "18px solid " + darkColor;
-		entryDark.innerHTML = "Dark Color: " + darkColor;
-		var entryLight = document.createElement('dd');
-		entryLight.class = "colorSchemePreview";
-		entryLight.style.borderLeft = "18px solid " + lightColor;
-		entryLight.innerHTML = "Light Color: " + lightColor;
-		var entryFiligree = document.createElement('dd');
-		entryFiligree.class = "colorSchemePreview";
-		entryFiligree.style.borderLeft = "18px solid " + filigreeColor;
-		entryFiligree.innerHTML = "Filigre Color: " + filigreeColor;
-		var table = document.getElementById("colorSchemesTable");
-		table.appendChild(entryName);
-		table.appendChild(entryBg);
-		table.appendChild(entryDark);
-		table.appendChild(entryLight);
-		table.appendChild(entryFiligree);
-
-		//Save to file by POST to API
-		var jsonData = {"name":schemeName,
-			"backgroundColor":backgroundColor,
-			"lightColor":lightColor,
-			"darkColor":darkColor,
-			"filigreeColor":filigreeColor
-		}
-		$.ajax("/api/v1/colors",{
-			data : JSON.stringify(jsonData),
-			contentType : "application/json",
-			type:"POST",
-			dataType:"json"
-		});
-		
-		alert(schemeName + " color scheme saved.");
+		CreateColorSchemeDropdownOption(schemeName, backgroundColor, darkColor, lightColor, filigreeColor);
+		CreateColorSchemeTableEntry(schemeName, backgroundColor, darkColor, lightColor, filigreeColor);
+		SaveColorToFile(schemeName, backgroundColor, darkColor, lightColor, filigreeColor);
 	}
 
 	function LoadColor(){
@@ -473,17 +423,52 @@
 
 	function DeleteColor(){
 		var schemeName = $("#colorSelect").val();
+		DeleteSelectedColorSchemeDropdownOption()
+		DeleteColorSchemeTableEntry(schemeName);
+		DeleteColorSchemeFromFile(schemeName);
+	}
 
-		//dynamically remove option from dropdown
-		document.getElementById("colorSelect").remove(document.getElementById("colorSelect").selectedIndex);
+	function componentToHex(c) {
+		var hex = c.toString(16);
+		return hex.length == 1 ? "0" + hex : hex;
+	}
+	  
+	function rgbToHex(r, g, b) {
+		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+	}
 
-		//dynamically remove entry from color scheme list
-		var rows = document.getElementsByClassName(schemeName + "Preview");
-		while (rows.length > 0) {
-			rows[0].remove();
-		}
+	function CreateColorSchemeDropdownOption(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
+		var option = document.createElement('option');
+		option.value = schemeName;
+		option.setAttribute("data-background-color", backgroundColor);
+		option.setAttribute("data-dark-color", darkColor);
+		option.setAttribute("data-light-color", lightColor);
+		option.setAttribute("data-filigree-color", filigreeColor);
+		option.innerHTML = schemeName;
+		document.getElementById("colorSelect").appendChild(option);
+	}
 
-		//Delete from file by DELETE to API
+	function CreateColorSchemeTableColorLine(name, color){
+		var entry = document.createElement('dd');
+		entry.class = "colorSchemePreview";
+		entry.style.borderLeft = "18px solid " + color;
+		entry.innerHTML = name + ": " + color;
+		return entry;
+	}
+
+	function CreateColorSchemeTableEntry(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
+		var entryName = document.createElement('dt');
+		entryName.class = "colorSchemeName";
+		entryName.innerHTML = schemeName;
+		var table = document.getElementById("colorSchemesTable");
+		table.appendChild(entryName);
+		table.appendChild(CreateColorSchemeTableColorLine("Backgound Color", backgroundColor));
+		table.appendChild(CreateColorSchemeTableColorLine("Dark Color", darkColor));
+		table.appendChild(CreateColorSchemeTableColorLine("Light Color", lightColor));
+		table.appendChild(CreateColorSchemeTableColorLine("Filigree Color", filigreeColor));
+	}
+
+	function SaveColorToFile(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
 		var jsonData = {"name":schemeName,
 			"backgroundColor":backgroundColor,
 			"lightColor":lightColor,
@@ -493,21 +478,31 @@
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
 			contentType : "application/json",
+			type:"POST",
+			dataType:"json"
+		});
+	}
+
+	function DeleteSelectedColorSchemeDropdownOption(){
+		document.getElementById("colorSelect").remove(document.getElementById("colorSelect").selectedIndex);
+	}
+
+	function DeleteColorSchemeTableEntry(schemeName){
+		var rows = document.getElementsByClassName(schemeName + "Preview");
+		while (rows.length > 0) {
+			rows[0].remove();
+		}
+	}
+
+	function DeleteColorSchemeFromFile(schemeName){
+		var jsonData = {"name":schemeName}
+		$.ajax("/api/v1/colors",{
+			data : JSON.stringify(jsonData),
+			contentType : "application/json",
 			type:"DELETE",
 			dataType:"json"
 		});
-		
-		alert(schemeName + " color scheme deleted.");
 	}
-
-	function componentToHex(c) {
-		var hex = c.toString(16);
-		return hex.length == 1 ? "0" + hex : hex;
-	  }
-	  
-	  function rgbToHex(r, g, b) {
-		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-	  }
 	  
 
 })();
