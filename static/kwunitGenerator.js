@@ -402,18 +402,9 @@
 			console.warn("Did not save color scheme, blank name.");
 			return;
 		}
-		var jsonData = {"name":schemeName,
-				"backgroundColor":backgroundColor,
-				"lightColor":lightColor,
-				"darkColor":darkColor,
-				"filigreeColor":filigreeColor
-			}
-		$.ajax("/api/v1/colors",{
-			data : JSON.stringify(jsonData),
-			contentType : "application/json",
-			type:"POST",
-			dataType:"json"
-		})
+		CreateColorSchemeDropdownOption(schemeName, backgroundColor, darkColor, lightColor, filigreeColor);
+		CreateColorSchemeTableEntry(schemeName, backgroundColor, darkColor, lightColor, filigreeColor);
+		SaveColorToFile(schemeName, backgroundColor, darkColor, lightColor, filigreeColor);
 	}
 
 	function LoadColor(){
@@ -431,29 +422,87 @@
 	}
 
 	function DeleteColor(){
-		var schemeName = $("#colorSchemeNameInput").val();
-		if (schemeName.trim() == ""){
-			console.warn("Did not delete color scheme, blank name.");
-			return;
-		}
-		var jsonData = {"name":schemeName
-			}
-		$.ajax("/api/v1/colors",{
-			data : JSON.stringify(jsonData),
-			contentType : "application/json",
-			type:"POST",
-			dataType:"json"
-		})
+		var schemeName = $("#colorSelect").val();
+		DeleteSelectedColorSchemeDropdownOption()
+		DeleteColorSchemeTableEntry(schemeName);
+		DeleteColorSchemeFromFile(schemeName);
 	}
 
 	function componentToHex(c) {
 		var hex = c.toString(16);
 		return hex.length == 1 ? "0" + hex : hex;
-	  }
+	}
 	  
-	  function rgbToHex(r, g, b) {
+	function rgbToHex(r, g, b) {
 		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-	  }
+	}
+
+	function CreateColorSchemeDropdownOption(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
+		var option = document.createElement('option');
+		option.value = schemeName;
+		option.setAttribute("data-background-color", backgroundColor);
+		option.setAttribute("data-dark-color", darkColor);
+		option.setAttribute("data-light-color", lightColor);
+		option.setAttribute("data-filigree-color", filigreeColor);
+		option.innerHTML = schemeName;
+		document.getElementById("colorSelect").appendChild(option);
+	}
+
+	function CreateColorSchemeTableColorLine(name, color){
+		var entry = document.createElement('dd');
+		entry.class = "colorSchemePreview";
+		entry.style.borderLeft = "18px solid " + color;
+		entry.innerHTML = name + ": " + color;
+		return entry;
+	}
+
+	function CreateColorSchemeTableEntry(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
+		var entryName = document.createElement('dt');
+		entryName.class = "colorSchemeName";
+		entryName.innerHTML = schemeName;
+		var table = document.getElementById("colorSchemesTable");
+		table.appendChild(entryName);
+		table.appendChild(CreateColorSchemeTableColorLine("Backgound Color", backgroundColor));
+		table.appendChild(CreateColorSchemeTableColorLine("Dark Color", darkColor));
+		table.appendChild(CreateColorSchemeTableColorLine("Light Color", lightColor));
+		table.appendChild(CreateColorSchemeTableColorLine("Filigree Color", filigreeColor));
+	}
+
+	function SaveColorToFile(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
+		var jsonData = {"name":schemeName,
+			"backgroundColor":backgroundColor,
+			"lightColor":lightColor,
+			"darkColor":darkColor,
+			"filigreeColor":filigreeColor
+		}
+		$.ajax("/api/v1/colors",{
+			data : JSON.stringify(jsonData),
+			contentType : "application/json",
+			type:"POST",
+			dataType:"json"
+		});
+	}
+
+	function DeleteSelectedColorSchemeDropdownOption(){
+		document.getElementById("colorSelect").remove(document.getElementById("colorSelect").selectedIndex);
+	}
+
+	function DeleteColorSchemeTableEntry(schemeName){
+		var rows = document.getElementsByClassName(schemeName + "Preview");
+		while (rows.length > 0) {
+			rows[0].remove();
+		}
+	}
+
+	function DeleteColorSchemeFromFile(schemeName){
+		var jsonData = {"name":schemeName}
+		$.ajax("/api/v1/colors",{
+			data : JSON.stringify(jsonData),
+			contentType : "application/json",
+			type:"DELETE",
+			dataType:"json"
+		});
+	}
 	  
 
 })();
