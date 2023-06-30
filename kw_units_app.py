@@ -25,6 +25,12 @@ def render_index():
         "index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated
     )
 
+@app.route("/traits")
+def render_traits_panel():
+    (traits, lastUpdated) = get_traits("static/traits.json")
+    return render_template(
+        "traits_panel.html", traits=traits, lastUpdated=lastUpdated
+    )
 
 @app.route("/api/v1/colors", methods=["GET", "POST", "DELETE"])
 def api_colors():
