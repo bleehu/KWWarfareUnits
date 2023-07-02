@@ -1,5 +1,6 @@
 from ..ColorSchemes.ColorScheme import ColorScheme
 
+
 def test_color_scheme_class():
     background_color = "#000000"
     light_color = "#ff00ff"

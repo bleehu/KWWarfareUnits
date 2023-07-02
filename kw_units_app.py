@@ -1,21 +1,21 @@
 
 import pdb
-from json import loads, dumps
+from json import dumps
+from json import loads
+
 from flask import Flask
 from flask import render_template
 from flask import request
 from KingdomsAndWarfare.Traits.Trait import Trait
-from KingdomsAndWarfare.Units.Unit import Unit
-from KingdomsAndWarfare.Units.UnitFactory import unit_from_dict
-from KingdomsAndWarfare.Units.Infantry import Infantry
 from KingdomsAndWarfare.Units.Artillery import Artillery
 from KingdomsAndWarfare.Units.Cavalry import Cavalry
-
+from KingdomsAndWarfare.Units.Infantry import Infantry
+from KingdomsAndWarfare.Units.Unit import Unit
+from KingdomsAndWarfare.Units.UnitFactory import unit_from_dict
 
 from .ColorSchemes.ColorScheme import ColorScheme
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def render_index():
@@ -118,4 +118,4 @@ def get_color_schemes(schemes_filepath: str, schemes_filename: str):
 
 
 if __name__ == "__main__":
-    app.run()
+    app_factory().run()
