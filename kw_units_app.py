@@ -35,7 +35,7 @@ def render_traits_panel():
 @app.route("/api/v1/colors", methods=["GET", "POST", "DELETE"])
 def api_colors():
     if request.method == "GET":
-        return json.dumps(get_color_schemes("static/", "colorSchemes.json"))
+        return dumps(get_color_schemes("static/", "colorSchemes.json"))
     elif request.method == "POST":
         return add_new_color_scheme(request.get_json(), "static/", "colorSchemes.json")
     elif request.method == "DELETE":
@@ -93,7 +93,7 @@ def add_new_color_scheme(new_scheme_dict: dict, schemes_filepath: str, schemes_f
     new_scheme = ColorScheme(new_scheme_dict)
     with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
         schemes_json = loads(schemes_file.read())
-        schemes_json["Color Schemes"].append(new_scheme.toJSON())
+        schemes_json[new_scheme.name] = new_scheme.toJSON()
         schemes_file.seek(0)
         schemes_file.truncate()
         schemes_file.write(dumps(schemes_json))
@@ -114,7 +114,7 @@ def delete_color_scheme(form_dict: dict, schemes_filepath: str, schemes_filename
 def get_color_schemes(schemes_filepath: str, schemes_filename: str):
     with open(f"{schemes_filepath}/{schemes_filename}", "r", encoding="utf-8") as schemes_file:
         schemesJson = loads(schemes_file.read())
-        return schemesJson["Color Schemes"]
+        return schemesJson
 
 
 if __name__ == "__main__":
