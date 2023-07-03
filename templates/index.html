@@ -19,7 +19,7 @@
 					<input type="text" name="unitNameInput" id="unitNameInput" value="Splonks">
 					<div class="statGroup">
 						<label for="nameSizeInput">Name Font Size:</label>
-						<input type="number" name="nameSizeInput" id="nameSizeInput" value="64">
+						<input type="number" name="nameSizeInput" id="nameSizeInput" value="32">
 					</div>
 				</div>
 				<div class="formgroup" id="bylineGroup">
@@ -115,10 +115,10 @@
 
 				<div class="formgroup">
 					<p> Unit Traits </p>
-					<input type="text" name="unitTrait1Input" id="unitTrait1Input" value="Splonkability">
-					<input type="text" name="unitTrait2Input" id="unitTrait2Input" value="Splonking">
-					<input type="text" name="unitTrait3Input" id="unitTrait3Input" value="Splonked">
-					<input type="text" name="unitTrait4Input" id="unitTrait4Input">
+					<div><input type="text" name="unitTrait1Input" id="unitTrait1Input" value="Splonkability"><input type="number" name="traitSizeInput1" id="traitSizeInput1" value="24"></div>
+					<div><input type="text" name="unitTrait2Input" id="unitTrait2Input" value="Splonking"><input type="number" name="traitSizeInput2" id="traitSizeInput2" value="24"></div>
+					<div><input type="text" name="unitTrait3Input" id="unitTrait3Input" value="Splonked"><input type="number" name="traitSizeInput3" id="traitSizeInput3" value="24"></div>
+					<div><input type="text" name="unitTrait4Input" id="unitTrait4Input"><input type="number" name="traitSizeInput4" id="traitSizeInput4" value="24"></div>
 				</div>
 
 				<div class="formgroup" id="colorGroup">
@@ -242,11 +242,11 @@
 				<h2>Saved Color Schemes</h2>
 				<dl id="colorSchemesTable">
 					{% for colorScheme in colorSchemes %}
-					<dt class="colorSchemeName"> {{colorScheme["name"]}} </dt>
-					<dd class="colorSchemePreview" style="border-left: 18px solid {{colorScheme["Background Color"]}}">Background Color: {{colorScheme["Background Color"]}} </dd>
-					<dd class="colorSchemePreview" style="border-left: 18px solid {{colorScheme["Dark Color"]}}"> Dark Color: {{colorScheme["Dark Color"]}}</dd>
-					<dd class="colorSchemePreview" style="border-left: 18px solid {{colorScheme["Light Color"]}}"> Light Color: {{colorScheme["Light Color"]}} </dd>
-					<dd class="colorSchemePreview" style="border-left: 18px solid {{colorScheme["Filigree Color"]}}"> Filigree Color: {{colorScheme["Filigree Color"]}} </dd>
+					<dt class="{{colorScheme["name"]}}Preview">{{colorScheme["name"]}}</dt>
+					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Background Color"]}}">Background Color: {{colorScheme["Background Color"]}}</dd>
+					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Dark Color"]}}">Dark Color: {{colorScheme["Dark Color"]}}</dd>
+					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Light Color"]}}">Light Color: {{colorScheme["Light Color"]}}</dd>
+					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Filigree Color"]}}">Filigree Color: {{colorScheme["Filigree Color"]}}</dd>
 					{% endfor %}
 				</dl>
 			</div>

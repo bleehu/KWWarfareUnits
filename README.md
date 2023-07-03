@@ -12,7 +12,12 @@ install pipenv `pip install pipenv` or `python -m pip install pipenv`
 
 # using
 
+### Linux
 `pipenv run export FLASK_APP='kw_units_app.py'`
+`pipenv run flask run`
+
+### Windows
+`set FLASK_APP=kw_units_app.py`
 `pipenv run flask run`
 
 # update
