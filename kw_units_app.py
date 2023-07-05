@@ -94,7 +94,7 @@ def add_new_color_scheme(new_scheme_dict: dict, schemes_filepath: str, schemes_f
     new_scheme = ColorScheme(new_scheme_dict)
     with open(f"{schemes_filepath}/{schemes_filename}", "r+", encoding="utf-8") as schemes_file:
         schemes_json = loads(schemes_file.read())
-        schemes_json[new_scheme.name] = new_scheme.toJSON()
+        schemes_json = schemes_json | new_scheme.toJSON()
         schemes_file.seek(0)
         schemes_file.truncate()
         schemes_file.write(dumps(schemes_json))

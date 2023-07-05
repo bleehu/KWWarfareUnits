@@ -469,11 +469,13 @@
 	}
 
 	function SaveColorToFile(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
-		var jsonData = {"name":schemeName,
-			"backgroundColor":backgroundColor,
-			"lightColor":lightColor,
-			"darkColor":darkColor,
-			"filigreeColor":filigreeColor
+		var jsonData = { schemeName: 
+			{
+				"backgroundColor":backgroundColor,
+				"lightColor":lightColor,
+				"darkColor":darkColor,
+				"filigreeColor":filigreeColor
+			}
 		}
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
@@ -495,7 +497,7 @@
 	}
 
 	function DeleteColorSchemeFromFile(schemeName){
-		var jsonData = {"name":schemeName}
+		var jsonData = {"to_delete":schemeName}
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
 			contentType : "application/json",
