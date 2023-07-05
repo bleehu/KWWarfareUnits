@@ -225,13 +225,14 @@
 				</form>
 				<form>
 					<select id="colorSelect">
-						{% for colorScheme in colorSchemes %}
-						<option value="{{colorScheme['name']}}" 
+						{% for name in colorSchemes %}
+						{% set colorScheme = coloeSchemes[name] %}
+						<option value="{{name}}" 
 							data-background-color="{{colorScheme['Background Color']}}" 
 							data-light-color="{{colorScheme['Light Color']}}"
 							data-dark-color="{{colorScheme['Dark Color']}}"
 							data-filigree-color="{{colorScheme['Filigree Color']}}">
-							{{colorScheme["name"]}}
+							{{name}}
 						</option>
 						{% endfor %}
 					</select>
