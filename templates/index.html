@@ -243,11 +243,15 @@
 				<dl id="colorSchemesTable">
 					{% for name in colorSchemes %}
 					{% set colorScheme = colorSchemes[name] %}
-					<dt class="{{colorScheme["name"]}}Preview">{{colorScheme["name"]}}</dt>
-					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Background Color"]}}">Background Color: {{colorScheme["Background Color"]}}</dd>
-					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Dark Color"]}}">Dark Color: {{colorScheme["Dark Color"]}}</dd>
-					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Light Color"]}}">Light Color: {{colorScheme["Light Color"]}}</dd>
-					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Filigree Color"]}}">Filigree Color: {{colorScheme["Filigree Color"]}}</dd>
+					<dt class="{{name}}Preview">{{name}}</dt>
+					{% set bgColor = colorScheme["Background Color"] %}
+					<dd class="{{name}}Preview" style="border-left: 18px solid {{bgColor}}">Background Color: {{bgColor}}</dd>
+					{% set darkColor = colorScheme["Dark Color"] %}
+					<dd class="{{name}}Preview" style="border-left: 18px solid {{darkColor}}">Dark Color: {{darkColor}}</dd>
+					{% set lightColor = colorScheme["Light Color"] %}
+					<dd class="{{name}}Preview" style="border-left: 18px solid {{lightColor}}">Light Color: {{lightColor}}</dd>
+					{% set filigreeColor = colorScheme["Filigree Color"] %}
+					<dd class="{{name}}Preview" style="border-left: 18px solid {{filigreeColor}}">Filigree Color: {{filigreeColor}}</dd>
 					{% endfor %}
 				</dl>
 			</div>
