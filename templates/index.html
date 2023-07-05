@@ -241,7 +241,8 @@
 
 				<h2>Saved Color Schemes</h2>
 				<dl id="colorSchemesTable">
-					{% for colorScheme in colorSchemes %}
+					{% for name in colorSchemes %}
+					{% set colorScheme = colorSchemes[name] %}
 					<dt class="{{colorScheme["name"]}}Preview">{{colorScheme["name"]}}</dt>
 					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Background Color"]}}">Background Color: {{colorScheme["Background Color"]}}</dd>
 					<dd class="{{colorScheme["name"]}}Preview" style="border-left: 18px solid {{colorScheme["Dark Color"]}}">Dark Color: {{colorScheme["Dark Color"]}}</dd>
