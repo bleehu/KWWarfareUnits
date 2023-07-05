@@ -79,30 +79,29 @@ def test_get_color_schemes(tmp_path):
 
 def test_add_new_color_scheme(tmp_path):
     save_temporary_color_file(tmp_path)
-    new_color_dict = {"name":"Splonks",
-                    "backgroundColor":"#0a0a0a",
-                    "lightColor":"#ffffff",
-                    "darkColor":"#010101",
-                    "filigreeColor":"#00ffff"}
+    new_color_dict = {"Splonks":
+    {
+        "Background Color":"#0a0a0a",
+        "Light Color":"#ffffff",
+        "Dark Color":"#010101",
+        "Filigree Color":"#00ffff"
+    }}
     add_new_color_scheme(new_color_dict, tmp_path, "tempColors.json")
 
 def save_temporary_color_file(tmp_path) -> None:
     temp_json_filepath = tmp_path / "tempColors.json"
-    temp_json_filepath.write_text("""{
-    "Color Schemes": [
-        {
-            "name": "Elf",
+    temp_json_filepath.write_text("""
+    {
+        "Elf": {
             "Background Color": "#fde8cb",
             "Light Color": "#b6cdb7",
             "Dark Color": "#0c443e",
             "Filigree Color": "#babfbf"
         },
-        {
-            "name": "Dragonborn",
+        "Dragonborn": {
             "Background Color": "#bebebe",
             "Light Color": "#e5e5e5",
             "Dark Color": "#155768",
             "Filigree Color": "#99d9e1"
         }
-        ]
-        }""")
+    }""")
