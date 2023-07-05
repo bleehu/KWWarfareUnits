@@ -7,9 +7,6 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from KingdomsAndWarfare.Traits.Trait import Trait
-from KingdomsAndWarfare.Units.Artillery import Artillery
-from KingdomsAndWarfare.Units.Cavalry import Cavalry
-from KingdomsAndWarfare.Units.Infantry import Infantry
 from KingdomsAndWarfare.Units.Unit import Unit
 from KingdomsAndWarfare.Units.UnitFactory import unit_from_dict
 
@@ -25,12 +22,14 @@ def render_index():
         "index.html", traits=traits, colorSchemes=colorSchemes, lastUpdated=lastUpdated
     )
 
+
 @app.route("/traits")
 def render_traits_panel():
     (traits, lastUpdated) = get_traits("static/traits.json")
     return render_template(
         "traits_panel.html", traits=traits, lastUpdated=lastUpdated
     )
+
 
 @app.route("/api/v1/colors", methods=["GET", "POST", "DELETE"])
 def api_colors():
@@ -40,6 +39,7 @@ def api_colors():
         return add_new_color_scheme(request.get_json(), "static/", "colorSchemes.json")
     elif request.method == "DELETE":
         return delete_color_scheme(request.get_json(), "static/", "colorSchemes.json")
+
 
 @app.route("/api/v1/unittools/level_up", methods=["POST"])
 def api_level_up():
@@ -71,6 +71,7 @@ def api_downgrade():
     unit.downgrade()
     raw = dumps(unit.to_dict())
     return raw
+
 
 def unit_from_json(unit_json: dict) -> Unit:
     new_unit = unit_from_dict(unit_json)
