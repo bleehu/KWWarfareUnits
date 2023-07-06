@@ -469,13 +469,12 @@
 	}
 
 	function SaveColorToFile(schemeName, backgroundColor, darkColor, lightColor, filigreeColor){
-		var jsonData = { schemeName: 
-			{
-				"backgroundColor":backgroundColor,
-				"lightColor":lightColor,
-				"darkColor":darkColor,
-				"filigreeColor":filigreeColor
-			}
+		var jsonData = {}
+		jsonData[schemeName] = {
+			"Background Color":backgroundColor,
+			"Light Color":lightColor,
+			"Dark Color":darkColor,
+			"Filigree Color":filigreeColor
 		}
 		$.ajax("/api/v1/colors",{
 			data : JSON.stringify(jsonData),
